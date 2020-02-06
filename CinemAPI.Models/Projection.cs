@@ -1,5 +1,6 @@
 ﻿using CinemAPI.Models.Contracts.Projection;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CinemAPI.Models
 {
@@ -27,5 +28,8 @@ namespace CinemAPI.Models
         public virtual Movie Movie { get; set; }
 
         public DateTime StartDate { get; set; }
+
+        [Range(0, 32767)]
+        public int AvailableSeatsCount { get; set; }
     }
 }

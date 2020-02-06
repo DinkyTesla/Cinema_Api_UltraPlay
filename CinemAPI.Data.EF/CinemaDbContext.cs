@@ -8,7 +8,7 @@ namespace CinemAPI.Data.EF
     public class CinemaDbContext : DbContext
     {
         public CinemaDbContext()
-            : base("CinemaDbContext")
+            : base("name=CinemaDbContext")
         {
             this.Configuration.LazyLoadingEnabled = false;
             this.Configuration.ProxyCreationEnabled = false;
