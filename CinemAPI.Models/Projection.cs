@@ -24,10 +24,14 @@ namespace CinemAPI.Models
         public virtual Room Room { get; set; }
 
         public int MovieId { get; set; }
-        
+
         public virtual Movie Movie { get; set; }
 
         public DateTime StartDate { get; set; }
+
+        //Using Entity Framework code first add new column called “AvailableSeatsCount”
+        //into Projection table.The column can not accept negative values.This means you can
+        //not insert new projection with “AvailableSeatsCount” value less than 0.
 
         [Range(0, 32767)]
         public int AvailableSeatsCount { get; set; }

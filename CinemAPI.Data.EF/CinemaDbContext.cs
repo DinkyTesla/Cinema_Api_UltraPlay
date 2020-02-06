@@ -8,7 +8,7 @@ namespace CinemAPI.Data.EF
     public class CinemaDbContext : DbContext
     {
         public CinemaDbContext()
-            : base("name=CinemaDbContext")
+            : base("CinemaDbContext")
         {
             this.Configuration.LazyLoadingEnabled = false;
             this.Configuration.ProxyCreationEnabled = false;
@@ -40,6 +40,8 @@ namespace CinemAPI.Data.EF
             }
 
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Projection>();
         }
     }
 }

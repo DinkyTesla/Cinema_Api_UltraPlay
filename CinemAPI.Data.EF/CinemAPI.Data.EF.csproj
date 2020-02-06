@@ -50,6 +50,10 @@
   <ItemGroup>
     <Compile Include="CinemaDbContext.cs" />
     <Compile Include="MigrationConfiguration.cs" />
+    <Compile Include="Migrations\202002061039513_Init.cs" />
+    <Compile Include="Migrations\202002061039513_Init.Designer.cs">
+      <DependentUpon>202002061039513_Init.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelConfigurations\CinemaModelConfiguration.cs" />
     <Compile Include="IModelConfiguration.cs" />
@@ -69,6 +73,11 @@
       <Project>{BA334908-BED7-43D3-B885-A8B529EC6D36}</Project>
       <Name>CinemAPI.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202002061039513_Init.resx">
+      <DependentUpon>202002061039513_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
