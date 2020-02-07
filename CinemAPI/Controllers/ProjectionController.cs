@@ -60,7 +60,7 @@ namespace CinemAPI.Controllers
                 return BadRequest("Sorry, no more available seats!");
             }
 
-            return Ok($"Seats Available: {projection.AvailableSeatsCount}");
+            return Ok($"Available seats for this projection: {projection.AvailableSeatsCount}");
         }
     }
 }

@@ -14,6 +14,10 @@ namespace CinemAPI.Data.EF.Migrations
 
         protected override void Seed(CinemAPI.Data.EF.CinemaDbContext context)
         {
+            context.Cinemas.AddOrUpdate(new Models.Cinema() { Name = "Cinema1", Address = "Address1" });
+            context.Rooms.AddOrUpdate(new Models.Room() { Number = 1, SeatsPerRow = 12, Rows = 12, CinemaId = 1 });
+            context.Movies.AddOrUpdate(new Models.Movie() { Name = "Movie1", DurationMinutes = 60 });
+            context.Projections.AddOrUpdate(new Models.Projection() { MovieId = 2, RoomId = 1, StartDate = DateTime.Parse("2020/02/08 14:23") });
 
             //  This method will be called after migrating to the latest version.
 
