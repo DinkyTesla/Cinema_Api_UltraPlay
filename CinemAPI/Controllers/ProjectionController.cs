@@ -38,14 +38,15 @@ namespace CinemAPI.Controllers
 
         //Expose endpoint which will return available seats count for a not
         //started projection.
-
         [HttpGet]
         public IHttpActionResult AvailableSeatsCount(int id)
         {
-            IProjection projection = projRepo
-                                    .GetActiveProjections(id)
-                                    .Where(p => p.Id == id)
-                                    .FirstOrDefault();
+            IProjection projection = projRepo.GetById(id);
+
+            if (projection == null)
+            {
+                return BadRequest("No such Projection!");
+            }
 
             //If projection has already started.
             if (projection.StartDate <= DateTime.UtcNow)

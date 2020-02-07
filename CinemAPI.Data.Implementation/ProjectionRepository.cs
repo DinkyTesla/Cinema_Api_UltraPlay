@@ -23,6 +23,12 @@ namespace CinemAPI.Data.Implementation
                                                       x.StartDate == startDate);
         }
 
+        //Method for getting a given Projection by only id.
+        public IProjection GetById(int id)
+        {
+            return db.Projections.FirstOrDefault(x => x.Id == id);
+        }
+
         public IEnumerable<IProjection> GetActiveProjections(int roomId)
         {
             DateTime now = DateTime.UtcNow;

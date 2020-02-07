@@ -33,7 +33,7 @@ namespace CinemAPI.Models
         //into Projection table.The column can not accept negative values.This means you can
         //not insert new projection with “AvailableSeatsCount” value less than 0.
 
-        [Range(0, 32767)]
+        [Range(0, int.MaxValue, ErrorMessage = "Seats cannot be a negative value.")]
         public int AvailableSeatsCount { get; set; }
     }
 }

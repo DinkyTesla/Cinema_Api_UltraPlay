@@ -14,6 +14,7 @@ namespace CinemAPI.Data.EF.Migrations
 
         protected override void Seed(CinemAPI.Data.EF.CinemaDbContext context)
         {
+
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
