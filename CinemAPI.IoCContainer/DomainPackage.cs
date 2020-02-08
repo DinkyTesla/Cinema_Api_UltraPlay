@@ -1,5 +1,5 @@
 ﻿using CinemAPI.Domain;
-using CinemAPI.Domain.Contracts;
+using CinemAPI.Domain.Contracts.Models.Projection;
 using CinemAPI.Domain.NewProjection;
 using SimpleInjector;
 using SimpleInjector.Packaging;

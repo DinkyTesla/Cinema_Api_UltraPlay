@@ -1,6 +1,6 @@
 ﻿using CinemAPI.Data;
-using CinemAPI.Domain.Contracts;
 using CinemAPI.Domain.Contracts.Models;
+using CinemAPI.Domain.Contracts.Models.Projection;
 using CinemAPI.Models.Contracts.Projection;
 using CinemAPI.Models.Contracts.Room;
 
@@ -17,13 +17,13 @@ namespace CinemAPI.Domain.NewProjection
             this.newProj = newProj;
         }
 
-        public NewProjectionSummary New(IProjectionCreation proj)
+        public NewSummary New(IProjectionCreation proj)
         {
             IRoom room = roomRepo.GetById(proj.RoomId);
 
             if (room == null)
             {
-                return new NewProjectionSummary(false, $"Room with id {proj.RoomId} does not exist");
+                return new NewSummary(false, $"Room with id {proj.RoomId} does not exist");
             }
 
             return newProj.New(proj);

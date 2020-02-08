@@ -1,6 +1,6 @@
 ﻿using CinemAPI.Data;
-using CinemAPI.Domain.Contracts;
 using CinemAPI.Domain.Contracts.Models;
+using CinemAPI.Domain.Contracts.Models.Projection;
 using CinemAPI.Models.Contracts.Projection;
 
 namespace CinemAPI.Domain.NewProjection
@@ -16,13 +16,13 @@ namespace CinemAPI.Domain.NewProjection
             this.newProj = newProj;
         }
 
-        public NewProjectionSummary New(IProjectionCreation proj)
+        public NewSummary New(IProjectionCreation proj)
         {
-            IProjection projection = projectRepo.Get(proj.MovieId, proj.RoomId, proj.StartDate);
+            IProjection projection = projectRepo.Get(proj.MovieId, proj.RoomId, proj.StartDate, proj.AvailableSeatsCount);
 
             if (projection != null)
             {
-                return new NewProjectionSummary(false, "Projection already exists");
+                return new NewSummary(false, "Projection already exists");
             }
 
             return newProj.New(proj);

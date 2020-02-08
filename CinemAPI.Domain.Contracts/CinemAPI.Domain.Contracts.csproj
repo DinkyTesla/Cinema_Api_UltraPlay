@@ -40,8 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="INewProjection.cs" />
-    <Compile Include="Models\NewProjectionSummary.cs" />
+    <Compile Include="Models\Projection\INewProjection.cs" />
+    <Compile Include="Models\Projection\IAvailableSeatsSummary.cs" />
+    <Compile Include="Models\NewSummary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

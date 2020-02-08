@@ -1,13 +1,13 @@
 ﻿namespace CinemAPI.Domain.Contracts.Models
 {
-    public class NewProjectionSummary
+    public class NewSummary
     {
-        public NewProjectionSummary(bool isCreated)
+        public NewSummary(bool isCreated)
         {
             this.IsCreated = isCreated;
         }
 
-        public NewProjectionSummary(bool status, string msg)
+        public NewSummary(bool status, string msg)
             : this(status)
         {
             this.Message = msg;

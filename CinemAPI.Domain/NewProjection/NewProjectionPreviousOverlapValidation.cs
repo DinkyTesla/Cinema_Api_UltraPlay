@@ -1,6 +1,6 @@
 ﻿using CinemAPI.Data;
-using CinemAPI.Domain.Contracts;
 using CinemAPI.Domain.Contracts.Models;
+using CinemAPI.Domain.Contracts.Models.Projection;
 using CinemAPI.Models.Contracts.Movie;
 using CinemAPI.Models.Contracts.Projection;
 using System;
@@ -22,7 +22,7 @@ namespace CinemAPI.Domain.NewProjection
             this.newProj = proj;
         }
 
-        public NewProjectionSummary New(IProjectionCreation proj)
+        public NewSummary New(IProjectionCreation proj)
         {
             IEnumerable<IProjection> movieProjectionsInRoom = projectRepo.GetActiveProjections(proj.RoomId);
 
@@ -38,7 +38,7 @@ namespace CinemAPI.Domain.NewProjection
 
                 if (previousProjectionEnd >= proj.StartDate)
                 {
-                    return new NewProjectionSummary(false, $"Projection overlaps with previous one: {previousProjectionMovie.Name} at {previousProjection.StartDate}");
+                    return new NewSummary(false, $"Projection overlaps with previous one: {previousProjectionMovie.Name} at {previousProjection.StartDate}");
                 }
             }
 

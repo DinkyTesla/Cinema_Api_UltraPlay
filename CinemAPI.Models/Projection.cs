@@ -9,11 +9,12 @@ namespace CinemAPI.Models
         {
         }
 
-        public Projection(int movieId, int roomId, DateTime startdate)
+        public Projection(int movieId, int roomId, DateTime startdate, int availableSeatsCount)
         {
             this.MovieId = movieId;
             this.RoomId = roomId;
             this.StartDate = startdate;
+            this.AvailableSeatsCount = availableSeatsCount;
         }
 
         public long Id { get; set; }
