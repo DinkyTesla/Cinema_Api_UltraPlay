@@ -54,6 +54,10 @@
     <Compile Include="Migrations\202002061039513_Init.Designer.cs">
       <DependentUpon>202002061039513_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002081217155_ColumnRequirements.cs" />
+    <Compile Include="Migrations\202002081217155_ColumnRequirements.Designer.cs">
+      <DependentUpon>202002081217155_ColumnRequirements.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelConfigurations\CinemaModelConfiguration.cs" />
     <Compile Include="IModelConfiguration.cs" />
@@ -77,6 +81,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202002061039513_Init.resx">
       <DependentUpon>202002061039513_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002081217155_ColumnRequirements.resx">
+      <DependentUpon>202002081217155_ColumnRequirements.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

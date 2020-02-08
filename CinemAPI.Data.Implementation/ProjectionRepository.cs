@@ -24,9 +24,9 @@ namespace CinemAPI.Data.Implementation
         }
 
         //Method for getting a given Projection by only id.
-        public IProjection GetById(int id)
+        public IProjection GetById(int projectionId)
         {
-            return db.Projections.FirstOrDefault(x => x.Id == id);
+            return db.Projections.FirstOrDefault(x => x.Id == projectionId);
         }
 
         public IEnumerable<IProjection> GetActiveProjections(int roomId)

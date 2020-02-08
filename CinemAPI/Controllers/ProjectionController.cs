@@ -1,12 +1,11 @@
-﻿using CinemAPI.Data;
+﻿using System;
+using System.Web.Http;
+using CinemAPI.Data;
 using CinemAPI.Domain.Contracts;
 using CinemAPI.Domain.Contracts.Models;
 using CinemAPI.Models;
 using CinemAPI.Models.Contracts.Projection;
 using CinemAPI.Models.Input.Projection;
-using System;
-using System.Linq;
-using System.Web.Http;
 
 namespace CinemAPI.Controllers
 {
@@ -20,29 +19,15 @@ namespace CinemAPI.Controllers
             this.newProj = newProj;
             this.projRepo = projRepo;
         }
-
-        [HttpPost]
-        public IHttpActionResult Index(ProjectionCreationModel model)
-        {
-            NewProjectionSummary summary = newProj.New(new Projection(model.MovieId, model.RoomId, model.StartDate));
-
-            if (summary.IsCreated)
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest(summary.Message);
-            }
-        }
-
         //Expose endpoint which will return available seats count for a not
         //started projection.
         [HttpGet]
-        public IHttpActionResult AvailableSeatsCount(int id)
+        [Route("api/projection/AvailableSeatsCount/{projectionId}")]
+        public IHttpActionResult AvailableSeatsCount(int projectionId)
         {
-            IProjection projection = projRepo.GetById(id);
+            IProjection projection = projRepo.GetById(projectionId);
 
+            //If there is no such projection.
             if (projection == null)
             {
                 return BadRequest("No such Projection!");
@@ -61,6 +46,21 @@ namespace CinemAPI.Controllers
             }
 
             return Ok($"Available seats for this projection: {projection.AvailableSeatsCount}");
+        }
+
+        [HttpPost]
+        public IHttpActionResult Index(ProjectionCreationModel model)
+        {
+            NewProjectionSummary summary = newProj.New(new Projection(model.MovieId, model.RoomId, model.StartDate));
+
+            if (summary.IsCreated)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(summary.Message);
+            }
         }
     }
 }

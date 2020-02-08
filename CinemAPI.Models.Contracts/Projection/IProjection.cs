@@ -12,7 +12,7 @@ namespace CinemAPI.Models.Contracts.Projection
 
         DateTime StartDate { get; }
 
+        //Step 1 for code first: Add new field.
         int AvailableSeatsCount { get; }
-
     }
 }
