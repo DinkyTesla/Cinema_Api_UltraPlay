@@ -25,6 +25,7 @@ namespace CinemAPI.Domain.Contracts.Models
 
         public int AvailableSeatsCount { get; set; }
 
+        //TODO: Should this be here?
         //Need to implement this feature to check for finished projections.
         public DateTime ProjectionDuration { get; set; }
     }

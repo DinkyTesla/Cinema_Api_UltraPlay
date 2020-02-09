@@ -28,32 +28,32 @@ namespace CinemAPI.Controllers
         [Route("api/projection/AvailableSeatsCount/{projectionId}")]
         public IHttpActionResult AvailableSeatsCount(int projectionId)
         {
-            NewProjectionSummary summary = projRepo.GetById(projectionId);
-            //IProjection projection =  projRepo.GetById(projectionId);
+            IProjection projection = projRepo.GetById(projectionId);
 
-            ////If there is no such projection.
-            //if (projection == null)
-            //{
-            //    return BadRequest("No such Projection!");
-            //}
+            //If there is no such projection.
+            if (projection == null)
+            {
+                return BadRequest("No such Projection!");
+            }
 
-            ////If projection has already started.
-            ////TODO: ten minutes before start.
-            //if (projection.StartDate <= DateTime.UtcNow)
-            //{
-            //    return BadRequest("Projection already started!");
-            //}
-            ////TODO: Add func for finished projection.
+            //If projection has already started.
+            //TODO: ten minutes before start.
+            if (projection.StartDate <= DateTime.UtcNow)
+            {
+                return BadRequest("Projection already started!");
+            }
+            //TODO: Add func for finished projection.
 
-            ////If there are no seats available.
-            //if (projection.AvailableSeatsCount == 0)
-            //{
-            //    return BadRequest("Sorry, no more available seats!");
-            //}
+            //If there are no seats available.
+            if (projection.AvailableSeatsCount == 0)
+            {
+                return BadRequest("Sorry, no more available seats!");
+            }
 
-            //return Ok($"Available seats for this projection: {projection.AvailableSeatsCount}");
+            return Ok($"Available seats for this projection: {projection.AvailableSeatsCount}");
         }
 
+        //TODO: Async
         [HttpPost]
         public IHttpActionResult Index(ProjectionCreationModel model)
         {
