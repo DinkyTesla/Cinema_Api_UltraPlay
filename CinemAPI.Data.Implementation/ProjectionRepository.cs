@@ -1,6 +1,7 @@
 ﻿using CinemAPI.Data.EF;
 using CinemAPI.Models;
 using CinemAPI.Models.Contracts.Projection;
+using CinemAPI.Models.Contracts.Room;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,15 @@ namespace CinemAPI.Data.Implementation
         public ProjectionRepository(CinemaDbContext db)
         {
             this.db = db;
+        }
+
+        //Initializes initial available seats which should be equal to all seats in the current room.
+        public int InitialSeats(int roomId)
+        {
+            IRoom currentRoom = db.Rooms.FirstOrDefault(r => r.Id == roomId);
+            int initialSeats = currentRoom.Rows * currentRoom.SeatsPerRow;
+
+            return initialSeats;
         }
 
         public IProjection Get(int movieId, int roomId, DateTime startDate)
@@ -41,8 +51,12 @@ namespace CinemAPI.Data.Implementation
         {
             Projection newProj = new Projection(proj.MovieId, proj.RoomId, proj.StartDate);
 
+            //Initializes initial available seats which should be equal to all seats in the current room.
+            newProj.AvailableSeatsCount = InitialSeats(proj.RoomId);
+
             db.Projections.Add(newProj);
             db.SaveChanges();
         }
+
     }
 }

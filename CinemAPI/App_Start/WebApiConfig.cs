@@ -12,8 +12,13 @@ namespace CinemAPI
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
+           name: "GetApi",
+           routeTemplate: "api/{controller}/{id}"
+           );
+
+            config.Routes.MapHttpRoute(
             name: "DefaultApi",
-            routeTemplate: "api/{controller}/{id}"
+            routeTemplate: "api/{controller}"
             );
         }
     }

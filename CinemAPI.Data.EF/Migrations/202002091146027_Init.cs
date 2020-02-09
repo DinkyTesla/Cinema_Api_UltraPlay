@@ -1,4 +1,4 @@
-namespace CinemAPI.Data.EF.Migrations
+namespace CinemAPI.Data.EF
 {
     using System;
     using System.Data.Entity.Migrations;

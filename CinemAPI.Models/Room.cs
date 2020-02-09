@@ -1,5 +1,6 @@
 ﻿using CinemAPI.Models.Contracts.Room;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CinemAPI.Models
 {
@@ -19,6 +20,7 @@ namespace CinemAPI.Models
             this.CinemaId = cinemaId;
         }
 
+        [Key]
         public int Id { get; set; }
 
         public int Number { get; set; }

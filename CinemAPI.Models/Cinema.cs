@@ -1,5 +1,6 @@
 ﻿using CinemAPI.Models.Contracts.Cinema;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CinemAPI.Models
 {
@@ -17,6 +18,7 @@ namespace CinemAPI.Models
             this.Address = address;
         }
 
+        [Key]
         public int Id { get; set; }
 
         public string Name { get; set; }

@@ -55,7 +55,7 @@ namespace CinemAPI.Controllers
 
             if (summary.IsCreated)
             {
-                return Ok();
+                return Ok("Projection has been created.");
             }
             else
             {

@@ -15,6 +15,7 @@ namespace CinemAPI.Models
             this.MovieId = movieId;
             this.RoomId = roomId;
             this.StartDate = startdate;
+            this.AvailableSeatsCount = 0;
         }
 
         [Key]
