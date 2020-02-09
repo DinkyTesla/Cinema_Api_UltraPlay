@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web.Http;
 using CinemAPI.Data;
 using CinemAPI.Domain.Contracts;
@@ -19,48 +20,60 @@ namespace CinemAPI.Controllers
             this.newProj = newProj;
             this.projRepo = projRepo;
         }
+
         //Expose endpoint which will return available seats count for a not
         //started projection.
+        //TODO: Async
         [HttpGet]
         [Route("api/projection/AvailableSeatsCount/{projectionId}")]
         public IHttpActionResult AvailableSeatsCount(int projectionId)
         {
-            IProjection projection = projRepo.GetById(projectionId);
+            NewProjectionSummary summary = projRepo.GetById(projectionId);
+            //IProjection projection =  projRepo.GetById(projectionId);
 
-            //If there is no such projection.
-            if (projection == null)
-            {
-                return BadRequest("No such Projection!");
-            }
+            ////If there is no such projection.
+            //if (projection == null)
+            //{
+            //    return BadRequest("No such Projection!");
+            //}
 
-            //If projection has already started.
-            if (projection.StartDate <= DateTime.UtcNow)
-            {
-                return BadRequest("Projection already started!");
-            }
+            ////If projection has already started.
+            ////TODO: ten minutes before start.
+            //if (projection.StartDate <= DateTime.UtcNow)
+            //{
+            //    return BadRequest("Projection already started!");
+            //}
+            ////TODO: Add func for finished projection.
 
-            //If there are no seats available.
-            if (projection.AvailableSeatsCount == 0)
-            {
-                return BadRequest("Sorry, no more available seats!");
-            }
+            ////If there are no seats available.
+            //if (projection.AvailableSeatsCount == 0)
+            //{
+            //    return BadRequest("Sorry, no more available seats!");
+            //}
 
-            return Ok($"Available seats for this projection: {projection.AvailableSeatsCount}");
+            //return Ok($"Available seats for this projection: {projection.AvailableSeatsCount}");
         }
 
         [HttpPost]
         public IHttpActionResult Index(ProjectionCreationModel model)
         {
-            NewProjectionSummary summary = newProj.New(new Projection(model.MovieId, model.RoomId, model.StartDate));
+            //Catch errors for bad input data.
+            if (ModelState.IsValid)
+            {
+                NewProjectionSummary summary = newProj.New(new Projection(model.MovieId, model.RoomId, model.StartDate));
 
-            if (summary.IsCreated)
-            {
-                return Ok("Projection has been created.");
+                if (summary.IsCreated)
+                {
+                    return Ok("Projection has been created.");
+                }
+                else
+                {
+                    return BadRequest(summary.Message);
+                }
             }
-            else
-            {
-                return BadRequest(summary.Message);
-            }
+
+            //Catch errors for bad input data.
+            return BadRequest("Wrong Input Data!");
         }
     }
 }

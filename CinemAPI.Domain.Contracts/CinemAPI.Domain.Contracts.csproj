@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="INewProjection.cs" />
     <Compile Include="Models\NewProjectionSummary.cs" />
+    <Compile Include="Models\ProjectionSeatsSummary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
