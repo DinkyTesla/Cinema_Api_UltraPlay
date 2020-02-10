@@ -1,33 +1,35 @@
-﻿using CinemAPI.Data;
+﻿using CinemAPI.Domain.Contracts.Models;
+using CinemAPI.Domain.Contracts.Models.RoomModels;
 using CinemAPI.Models;
-using CinemAPI.Models.Contracts.Room;
 using CinemAPI.Models.Input.Room;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace CinemAPI.Controllers
 {
     public class RoomController : ApiController
     {
-        private readonly IRoomRepository roomRepo;
+        private readonly INewRoom newRoom;
 
-        public RoomController(IRoomRepository roomRepo)
+        public RoomController(INewRoom newRoom)
         {
-            this.roomRepo = roomRepo;
+            this.newRoom = newRoom;
         }
 
         [HttpPost]
-        public IHttpActionResult Index(RoomCreationModel model)
+        public async Task<IHttpActionResult> Index(RoomCreationModel model)
         {
-            IRoom room = roomRepo.GetByCinemaAndNumber(model.CinemaId, model.Number);
+            NewSummary summary = await this.newRoom.New(new Room
+                (model.Number, model.SeatsPerRow, model.Rows, model.CinemaId));
 
-            if (room == null)
+            if (summary.IsCreated)
             {
-                roomRepo.Insert(new Room(model.Number, model.SeatsPerRow, model.Rows, model.CinemaId));
-
                 return Ok();
             }
-
-            return BadRequest("Room already exists");
+            else
+            {
+                return BadRequest(summary.Message);
+            }
         }
     }
 }

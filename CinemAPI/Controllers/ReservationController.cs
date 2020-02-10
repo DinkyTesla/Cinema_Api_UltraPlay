@@ -1,13 +1,8 @@
 ﻿using CinemAPI.Domain.Contracts.Models;
 using CinemAPI.Domain.Contracts.Models.Reservation;
+using CinemAPI.Domain.Contracts.Models.ReservationModels;
 using CinemAPI.Models;
-using CinemAPI.Models.Contracts.Reservation;
 using CinemAPI.Models.Input.Reservation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -17,15 +12,15 @@ namespace CinemAPI.Controllers
     public class ReservationController : ApiController
     {
         private readonly INewReservation newReservation;
-        //private readonly IDeleteReservation deleteReservation;
-        //private readonly IBuyTicket buyTicket;
+        private readonly IDeleteReservation deleteReservation;
+        private readonly IBuyTicket buyTicket;
 
-        public ReservationController(INewReservation newReservation)
-            //, IDeleteReservation deleteReservation, IBuyTicket buyTicket)
+        public ReservationController(INewReservation newReservation
+            , IDeleteReservation deleteReservation, IBuyTicket buyTicket)
         {
             this.newReservation = newReservation;
-            //this.deleteReservation = deleteReservation;
-            //this.buyTicket = buyTicket;
+            this.deleteReservation = deleteReservation;
+            this.buyTicket = buyTicket;
         }
 
         [HttpPost]

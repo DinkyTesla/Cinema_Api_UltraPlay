@@ -1,6 +1,6 @@
 ﻿using CinemAPI.Data;
-using CinemAPI.Domain.Contracts;
 using CinemAPI.Domain.Contracts.Models;
+using CinemAPI.Domain.Contracts.Models.ProjectionModels;
 using CinemAPI.Models;
 using CinemAPI.Models.Contracts.Projection;
 using System.Threading.Tasks;
@@ -19,7 +19,7 @@ namespace CinemAPI.Domain
         public async Task<NewSummary> New(IProjectionCreation projection)
         {
             await projectionsRepo.Insert(new Projection(projection.MovieId, projection.RoomId, projection.StartDate));
-
+            //TODO: Add appropriate message.
             return new NewSummary(true);
         }
     }

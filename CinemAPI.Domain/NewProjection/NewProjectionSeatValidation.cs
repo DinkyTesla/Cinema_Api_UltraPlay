@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace CinemAPI.Domain.NewProjection
 {
-    public class NewProjectionUniqueValidation : INewProjection
+    public class NewProjectionSeatValidation : INewProjection
     {
         private readonly IProjectionRepository projectRepo;
         private readonly INewProjection newProj;
 
-        public NewProjectionUniqueValidation(IProjectionRepository projectRepo, INewProjection newProj)
+        public NewProjectionSeatValidation(IProjectionRepository projectRepo, INewProjection newProj)
         {
             this.projectRepo = projectRepo;
             this.newProj = newProj;
@@ -20,11 +20,9 @@ namespace CinemAPI.Domain.NewProjection
 
         public async Task<NewSummary> New(IProjectionCreation proj)
         {
-            IProjection projection = await projectRepo.Get(proj.MovieId, proj.RoomId, proj.StartDate);
-
-            if (projection != null)
+            if (proj.AvailableSeatsCount < 0)
             {
-                return new NewSummary(false, StringConstants.ProjectionExists);
+                return new NewSummary(false, StringConstants.NegativeSeat);
             }
 
             return await newProj.New(proj);

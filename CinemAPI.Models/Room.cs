@@ -11,7 +11,7 @@ namespace CinemAPI.Models
             this.Projections = new List<Projection>();
         }
 
-        public Room(int number, short seatsPerRow, short rows, int cinemaId)
+        public Room(short number, short seatsPerRow, short rows, int cinemaId)
             : this()
         {
             this.Number = number;
@@ -23,7 +23,7 @@ namespace CinemAPI.Models
         [Key]
         public int Id { get; set; }
 
-        public int Number { get; set; }
+        public short Number { get; set; }
 
         public short SeatsPerRow { get; set; }
 

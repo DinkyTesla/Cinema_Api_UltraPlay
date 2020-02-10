@@ -1,33 +1,36 @@
 ﻿using CinemAPI.Data;
+using CinemAPI.Domain.Contracts.Models;
+using CinemAPI.Domain.Contracts.Models.CinemaModels;
 using CinemAPI.Models;
 using CinemAPI.Models.Contracts.Cinema;
 using CinemAPI.Models.Input.Cinema;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace CinemAPI.Controllers
 {
     public class CinemaController : ApiController
     {
-        private readonly ICinemaRepository cinemaRepo;
+        private readonly INewCinema newCinema;
 
-        public CinemaController(ICinemaRepository cinemaRepo)
+        public CinemaController(INewCinema newCinema)
         {
-            this.cinemaRepo = cinemaRepo;
+            this.newCinema = newCinema;
         }
 
         [HttpPost]
-        public IHttpActionResult Index(CinemaCreationModel model)
+        public async Task<IHttpActionResult> Index(CinemaCreationModel model)
         {
-            ICinema cinema = cinemaRepo.GetByNameAndAddress(model.Name, model.Address);
+            NewSummary summary = await this.newCinema.New(new Cinema(model.Name, model.Address));
 
-            if (cinema == null)
+            if (summary.IsCreated)
             {
-                cinemaRepo.Insert(new Cinema(model.Name, model.Address));
-
                 return Ok();
             }
-
-            return BadRequest("Cinema already exists");
+            else
+            {
+                return BadRequest(summary.Message);
+            }
         }
     }
 }

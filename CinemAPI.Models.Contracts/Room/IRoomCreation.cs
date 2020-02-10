@@ -2,7 +2,7 @@
 {
     public interface IRoomCreation
     {
-        int Number { get; }
+        short Number { get; }
 
         short SeatsPerRow { get; }
 

@@ -149,6 +149,10 @@
       <Project>{87F9B363-DB5B-4171-B86D-3CC2D9B5A5BD}</Project>
       <Name>CinemAPI.Domain.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CinemAPI.Domain\CinemAPI.Domain.csproj">
+      <Project>{E472D7CB-41CA-4F83-B47A-BFA6D406DFC0}</Project>
+      <Name>CinemAPI.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CinemAPI.IoCContainer\CinemAPI.IoCContainer.csproj">
       <Project>{6F75CD0F-3529-454C-ACAF-14028FC350A0}</Project>
       <Name>CinemAPI.IoCContainer</Name>

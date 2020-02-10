@@ -1,7 +1,6 @@
 ﻿using CinemAPI.Data;
-using CinemAPI.Domain.Contracts;
 using CinemAPI.Domain.Contracts.Models;
-using CinemAPI.Models.Contracts.Cinema;
+using CinemAPI.Domain.Contracts.Models.ProjectionModels;
 using CinemAPI.Models.Contracts.Projection;
 using CinemAPI.Models.Contracts.Room;
 using System.Threading.Tasks;

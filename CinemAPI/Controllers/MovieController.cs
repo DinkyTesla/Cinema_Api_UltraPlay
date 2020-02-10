@@ -1,33 +1,34 @@
-﻿using CinemAPI.Data;
+﻿using CinemAPI.Domain.Contracts.Models;
+using CinemAPI.Domain.Contracts.Models.MovieModels;
 using CinemAPI.Models;
-using CinemAPI.Models.Contracts.Movie;
 using CinemAPI.Models.Input.Movie;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace CinemAPI.Controllers
 {
     public class MovieController : ApiController
     {
-        private readonly IMovieRepository movieRepo;
+        private readonly INewMovie newMovie;
 
-        public MovieController(IMovieRepository movieRepo)
+        public MovieController(INewMovie newMovie)
         {
-            this.movieRepo = movieRepo;
+            this.newMovie = newMovie;
         }
 
         [HttpPost]
-        public IHttpActionResult Index(MovieCreationModel model)
+        public async Task<IHttpActionResult> Index(MovieCreationModel model)
         {
-            IMovie movie = movieRepo.GetByNameAndDuration(model.Name, model.DurationMinutes);
+            NewSummary summary = await this.newMovie.New(new Movie(model.Name, model.DurationMinutes));
 
-            if (movie == null)
+            if (summary.IsCreated)
             {
-                movieRepo.Insert(new Movie(model.Name, model.DurationMinutes));
-
                 return Ok();
             }
-
-            return BadRequest("Movie already exists");
+            else
+            {
+                return BadRequest(summary.Message);
+            }
         }
     }
 }

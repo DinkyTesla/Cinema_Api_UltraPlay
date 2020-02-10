@@ -40,10 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="INewProjection.cs" />
+    <Compile Include="Models\CinemaModels\INewCinema.cs" />
+    <Compile Include="Models\MovieModels\INewMovie.cs" />
     <Compile Include="Models\NewSummary.cs" />
-    <Compile Include="Models\Reservation\INewReservation.cs" />
-    <Compile Include="Models\Ticket\INewTicket.cs" />
+    <Compile Include="Models\ProjectionModels\IAvailableSeatsProjection.cs" />
+    <Compile Include="Models\ProjectionModels\ICheckSeatsProjection.cs" />
+    <Compile Include="Models\ProjectionModels\INewProjection.cs" />
+    <Compile Include="Models\ReservationModels\IBuyTicket.cs" />
+    <Compile Include="Models\ReservationModels\IDeleteReservation.cs" />
+    <Compile Include="Models\ReservationModels\INewReservation.cs" />
+    <Compile Include="Models\RoomModels\INewRoom.cs" />
+    <Compile Include="Models\TicketModels\INewTicket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

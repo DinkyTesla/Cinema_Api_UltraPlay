@@ -40,12 +40,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvailableSeatProjection\AvailableSeatProjectionStartedValidation.cs" />
+    <Compile Include="AvailableSeatProjection\AvailableSeatProjectionValidation.cs" />
+    <Compile Include="BuyTicketReservation\BuyTicketCreation.cs" />
+    <Compile Include="BuyTicketReservation\BuyTicketLateValidation.cs" />
+    <Compile Include="BuyTicketReservation\BuyTicketReservationExpiredValidation.cs" />
+    <Compile Include="BuyTicketReservation\BuyTicketReservationValidation.cs" />
+    <Compile Include="Constants\StringConstants.cs" />
+    <Compile Include="DeleteReservation\DeleteReservation.cs" />
+    <Compile Include="DeleteReservation\DeleteReservationUniqueValidation.cs" />
+    <Compile Include="NewCinema\NewCinemaCreation.cs" />
+    <Compile Include="NewCinema\NewCinemaUniqueValidation.cs" />
+    <Compile Include="NewMovie\NewMovieCreation.cs" />
+    <Compile Include="NewMovie\NewMovieUniqueValidation.cs" />
     <Compile Include="NewProjection\NewProjectionMovieValidation.cs" />
+    <Compile Include="NewProjection\NewProjectionPastTime.cs" />
     <Compile Include="NewProjection\NewProjectionRoomValidation.cs" />
     <Compile Include="NewProjection\NewProjectionCreation.cs" />
     <Compile Include="NewProjection\NewProjectionNextOverlapValidation.cs" />
     <Compile Include="NewProjection\NewProjectionPreviousOverlapValidation.cs" />
+    <Compile Include="NewProjection\NewProjectionSeatValidation.cs" />
     <Compile Include="NewProjection\NewProjectionUniqueValidation.cs" />
+    <Compile Include="NewReservation\NewReservationCheckIfSeatAvailableValidation.cs" />
+    <Compile Include="NewReservation\NewReservationCreation.cs" />
+    <Compile Include="NewReservation\NewReservationLateValidation.cs" />
+    <Compile Include="NewReservation\NewReservationProjectionStartingValidation.cs" />
+    <Compile Include="NewReservation\NewReservationProjectionValidation.cs" />
+    <Compile Include="NewReservation\NewReservationSeatValidation.cs" />
+    <Compile Include="NewRoom\NewRoomCinemaValidation.cs" />
+    <Compile Include="NewRoom\NewRoomCreation.cs" />
+    <Compile Include="NewRoom\NewRoomUniqueValidation.cs" />
+    <Compile Include="NewTicket\NewTicketCheckIfAvailableProjection.cs" />
+    <Compile Include="NewTicket\NewTicketCheckIfSeatAvailableValidation.cs" />
+    <Compile Include="NewTicket\NewTicketCreation.cs" />
+    <Compile Include="NewTicket\NewTicketLateValidation.cs" />
+    <Compile Include="NewTicket\NewTicketSeatValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,5 +95,6 @@
       <Name>CinemAPI.Models</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

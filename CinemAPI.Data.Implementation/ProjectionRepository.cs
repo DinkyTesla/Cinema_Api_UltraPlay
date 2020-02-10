@@ -57,7 +57,8 @@ namespace CinemAPI.Data.Implementation
 
         public async Task<IEnumerable<IProjection>> GetActiveProjections(int roomId)
         {
-            DateTime now = DateTime.UtcNow;
+            //TODO: fix time
+            DateTime now = DateTime.Now;
 
             return await db.Projections.Where(x => x.RoomId == roomId &&
                                              x.StartDate > now)
@@ -80,7 +81,7 @@ namespace CinemAPI.Data.Implementation
         //TODO: fix async
         public async Task<bool> CheckIfSeatIsAvailable(long id, int row, int col)
         {
-            IQueryable<IReservation> reservations = this.db.Reservations.Where(x => x.ProjectionId == id);
+            IQueryable<IReservation> reservations =  this.db.Reservations.Where(x => x.ProjectionId == id);
 
             foreach (var reservation in reservations)
             {
@@ -90,7 +91,7 @@ namespace CinemAPI.Data.Implementation
                 }
             }
 
-            IQueryable<ITicket> tickets = this.db.Tickets.Where(x => x.ProjectionId == id);
+            IQueryable<ITicket> tickets =  this.db.Tickets.Where(x => x.ProjectionId == id);
 
             foreach (var ticket in tickets)
             {

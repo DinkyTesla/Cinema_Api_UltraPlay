@@ -1,6 +1,6 @@
 ﻿using CinemAPI.Data;
-using CinemAPI.Domain.Contracts;
 using CinemAPI.Domain.Contracts.Models;
+using CinemAPI.Domain.Contracts.Models.ProjectionModels;
 using CinemAPI.Models.Contracts.Movie;
 using CinemAPI.Models.Contracts.Projection;
 using System;
@@ -23,20 +23,21 @@ namespace CinemAPI.Domain.NewProjection
             this.newProj = newProj;
         }
 
-        public async Task<NewSummary> New(IProjectionCreation proj)
+        public async Task<NewSummary> New(IProjectionCreation projection)
         {
-            IEnumerable<IProjection> movieProjectionsInRoom = this.projectRepo.GetActiveProjections(proj.RoomId);
+            IEnumerable<IProjection> movieProjectionsInRoom = await this.projectRepo.GetActiveProjections(projection.RoomId);
 
-            IProjection nextProjection = movieProjectionsInRoom.Where(x => x.StartDate > proj.StartDate)
+            //TODO: add await?
+            IProjection nextProjection = movieProjectionsInRoom.Where(x => x.StartDate > projection.StartDate)
                                                                        .OrderBy(x => x.StartDate)
                                                                        .FirstOrDefault();
-
+            //TODO: Take Endate from table.
             if (nextProjection != null)
             {
-                IMovie curMovie = await this.movieRepo.GetById(proj.MovieId);
+                IMovie currentMovie = await this.movieRepo.GetById(projection.MovieId);
                 IMovie nextProjectionMovie = await this.movieRepo.GetById(nextProjection.MovieId);
 
-                DateTime curProjectionEndTime = proj.StartDate.AddMinutes(curMovie.DurationMinutes);
+                DateTime curProjectionEndTime = projection.StartDate.AddMinutes(currentMovie.DurationMinutes);
 
                 if (curProjectionEndTime >= nextProjection.StartDate)
                 {
@@ -45,7 +46,7 @@ namespace CinemAPI.Domain.NewProjection
                 }
             }
 
-            return await newProj.New(proj);
+            return await newProj.New(projection);
         }
     }
 }

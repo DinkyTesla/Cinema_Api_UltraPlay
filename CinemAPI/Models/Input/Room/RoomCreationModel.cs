@@ -2,7 +2,7 @@
 {
     public class RoomCreationModel
     {
-        public int Number { get; set; }
+        public short Number { get; set; }
 
         public short SeatsPerRow { get; set; }
 

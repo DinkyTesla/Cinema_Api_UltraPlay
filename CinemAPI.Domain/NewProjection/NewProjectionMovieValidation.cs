@@ -1,6 +1,6 @@
 ﻿using CinemAPI.Data;
-using CinemAPI.Domain.Contracts;
 using CinemAPI.Domain.Contracts.Models;
+using CinemAPI.Domain.Contracts.Models.ProjectionModels;
 using CinemAPI.Models.Contracts.Movie;
 using CinemAPI.Models.Contracts.Projection;
 using System.Threading.Tasks;

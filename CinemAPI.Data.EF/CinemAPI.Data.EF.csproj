@@ -54,12 +54,18 @@
     <Compile Include="Migrations\202002091146027_Init.Designer.cs">
       <DependentUpon>202002091146027_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002101624212_BigBang.cs" />
+    <Compile Include="Migrations\202002101624212_BigBang.Designer.cs">
+      <DependentUpon>202002101624212_BigBang.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelConfigurations\CinemaModelConfiguration.cs" />
     <Compile Include="IModelConfiguration.cs" />
     <Compile Include="ModelConfigurations\MovieModelConfiguration.cs" />
     <Compile Include="ModelConfigurations\ProjectionModelConfiguration.cs" />
+    <Compile Include="ModelConfigurations\ReservationModelConfiguration.cs" />
     <Compile Include="ModelConfigurations\RoomModelConfiguration.cs" />
+    <Compile Include="ModelConfigurations\TicketModelConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +83,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202002091146027_Init.resx">
       <DependentUpon>202002091146027_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002101624212_BigBang.resx">
+      <DependentUpon>202002101624212_BigBang.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

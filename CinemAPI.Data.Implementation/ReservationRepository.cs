@@ -33,7 +33,7 @@ namespace CinemAPI.Data.Implementation
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<int> RemoveAllReservations(int id)
+        public async Task<int> RemoveAllReservations(long id)
         {
             IQueryable<Reservation> reservations = this.db.Reservations.Where(x => x.ProjectionId == id);
             var count = reservations.Count();
@@ -55,5 +55,7 @@ namespace CinemAPI.Data.Implementation
             this.db.Reservations.Remove(reservation);
             await this.db.SaveChangesAsync();
         }
+
+
     }
 }

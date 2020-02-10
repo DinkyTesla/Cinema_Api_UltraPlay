@@ -1,6 +1,6 @@
 ﻿using CinemAPI.Data;
-using CinemAPI.Domain.Contracts;
 using CinemAPI.Domain.Contracts.Models;
+using CinemAPI.Domain.Contracts.Models.ProjectionModels;
 using CinemAPI.Models.Contracts.Movie;
 using CinemAPI.Models.Contracts.Projection;
 using System;
@@ -25,7 +25,7 @@ namespace CinemAPI.Domain.NewProjection
 
         public async Task<NewSummary> New(IProjectionCreation proj)
         {
-            IEnumerable<IProjection> movieProjectionsInRoom = this.projectRepo.GetActiveProjections(proj.RoomId);
+            IEnumerable<IProjection> movieProjectionsInRoom = await this.projectRepo.GetActiveProjections(proj.RoomId);
 
             IProjection previousProjection = movieProjectionsInRoom.Where(x => x.StartDate < proj.StartDate)
                                                                         .OrderByDescending(x => x.StartDate)
