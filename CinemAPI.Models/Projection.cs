@@ -43,5 +43,7 @@ namespace CinemAPI.Models
         [Required]
         [Range(0, int.MaxValue, ErrorMessage = "Seats cannot be a negative value.")]
         public int AvailableSeatsCount { get; set; }
+
+        public DateTime EndDate { get; set; }
     }
 }

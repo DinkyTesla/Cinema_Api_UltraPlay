@@ -1,5 +1,6 @@
 ﻿using CinemAPI.Data.EF;
 using CinemAPI.Models;
+using CinemAPI.Models.Contracts.Movie;
 using CinemAPI.Models.Contracts.Projection;
 using CinemAPI.Models.Contracts.Room;
 using System;
@@ -26,11 +27,13 @@ namespace CinemAPI.Data.Implementation
             return initialSeats;
         }
 
-        public IProjection Get(int movieId, int roomId, DateTime startDate)
+        public DateTime CalculateEndDate(int movieId, DateTime startDate)
         {
-            return db.Projections.FirstOrDefault(x => x.MovieId == movieId &&
-                                                      x.RoomId == roomId &&
-                                                      x.StartDate == startDate);
+            IMovie currentMovie = db.Movies.FirstOrDefault(m => m.Id == movieId);
+
+            DateTime endDate = startDate.AddMinutes(currentMovie.DurationMinutes);
+
+            return endDate;
         }
 
         //Method for getting a given Projection by only id.
@@ -39,6 +42,12 @@ namespace CinemAPI.Data.Implementation
             return db.Projections.FirstOrDefault(x => x.Id == projectionId);
         }
 
+        public IProjection Get(int movieId, int roomId, DateTime startDate)
+        {
+            return db.Projections.FirstOrDefault(x => x.MovieId == movieId &&
+                                                      x.RoomId == roomId &&
+                                                      x.StartDate == startDate);
+        }
         public IEnumerable<IProjection> GetActiveProjections(int roomId)
         {
             DateTime now = DateTime.UtcNow;
@@ -53,10 +62,11 @@ namespace CinemAPI.Data.Implementation
 
             //Initializes initial available seats which should be equal to all seats in the current room.
             newProj.AvailableSeatsCount = InitialSeats(proj.RoomId);
+            //Initialize end date.
+            newProj.EndDate = CalculateEndDate(proj.MovieId, proj.StartDate);
 
             db.Projections.Add(newProj);
             db.SaveChanges();
         }
-
     }
 }

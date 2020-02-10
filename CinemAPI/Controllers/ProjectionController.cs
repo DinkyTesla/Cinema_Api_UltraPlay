@@ -23,7 +23,7 @@ namespace CinemAPI.Controllers
 
         //Expose endpoint which will return available seats count for a not
         //started projection.
-        //TODO: Async
+        //TODO: Async, export strings to file.
         [HttpGet]
         [Route("api/projection/AvailableSeatsCount/{projectionId}")]
         public IHttpActionResult AvailableSeatsCount(int projectionId)
@@ -38,11 +38,25 @@ namespace CinemAPI.Controllers
 
             //If projection has already started.
             //TODO: ten minutes before start.
-            if (projection.StartDate <= DateTime.UtcNow)
-            {
-                return BadRequest("Projection already started!");
-            }
+            DateTime currenTime = DateTime.Now;
+            double minutesForLateReservation = -10;
+
             //TODO: Add func for finished projection.
+            if (projection.EndDate < currenTime)
+            {
+                return BadRequest("Projection already finished!");
+            }
+
+            if (projection.StartDate.AddMinutes(minutesForLateReservation) <= currenTime)
+            {
+                if (projection.StartDate <= currenTime)
+                {
+                    return BadRequest("Projection already started!");
+                }
+
+                return Ok($"Too late for reservations, but several minutes left to buy tickets for the remaining {projection.AvailableSeatsCount} seats");
+            }
+
 
             //If there are no seats available.
             if (projection.AvailableSeatsCount == 0)

@@ -6,8 +6,10 @@ namespace CinemAPI.Data
 {
     public interface IProjectionRepository
     {
-        //Method for ilitializing the seats based on the all seats in the room.
+        //Method for initialize the seats based on the all seats in the room.
         int InitialSeats(int roomId);
+
+        DateTime CalculateEndDate(int movieId, DateTime startDate);
 
         IProjection Get(int movieId, int roomId, DateTime startDate);
 

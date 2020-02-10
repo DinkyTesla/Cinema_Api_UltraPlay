@@ -14,5 +14,8 @@ namespace CinemAPI.Models.Contracts.Projection
 
         //Step 1 for code first: Add new field.
         int AvailableSeatsCount { get; }
+
+        //Should be build In, because we got all we need to calculate at creation.
+        DateTime EndDate { get; }
     }
 }
