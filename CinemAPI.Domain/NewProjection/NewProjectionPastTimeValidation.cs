@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace CinemAPI.Domain.NewProjection
 {
-    public class NewProjectionPastTime : INewProjection
+    public class NewProjectionPastTimeValidation : INewProjection
     {
         private readonly IProjectionRepository projectionsRepo;
         private readonly INewProjection newProj;
 
-        public NewProjectionPastTime(IProjectionRepository projectionsRepo, INewProjection newProj)
+        public NewProjectionPastTimeValidation(IProjectionRepository projectionsRepo, INewProjection newProj)
         {
             this.projectionsRepo = projectionsRepo;
             this.newProj = newProj;

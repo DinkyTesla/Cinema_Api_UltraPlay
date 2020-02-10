@@ -1,4 +1,5 @@
 ﻿using CinemAPI.Data;
+using CinemAPI.Domain.Constants;
 using CinemAPI.Domain.Contracts.Models;
 using CinemAPI.Domain.Contracts.Models.ProjectionModels;
 using CinemAPI.Models.Contracts.Projection;
@@ -23,7 +24,7 @@ namespace CinemAPI.Domain.AvailableSeatProjection
 
             if (projection == null)
             {
-                return new NewSummary(false, $"Projection with id {id} does not exist");
+                return new NewSummary(false, StringConstants.NoSuchProjection);
             }
 
             return await this.availableSeats.AvailableSeats(id);

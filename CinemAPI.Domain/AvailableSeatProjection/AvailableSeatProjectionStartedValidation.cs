@@ -27,6 +27,7 @@ namespace CinemAPI.Domain.AvailableSeatProjection
                 return new NewSummary(false, StringConstants.ProjectionAlreadyStarted);
             }
 
+            //TODO: fix this message.
             return new NewSummary(true, projection.AvailableSeatsCount.ToString());
         }
     }

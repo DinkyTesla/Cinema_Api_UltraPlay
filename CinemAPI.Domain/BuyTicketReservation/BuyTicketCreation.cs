@@ -1,4 +1,5 @@
 ﻿using CinemAPI.Data;
+using CinemAPI.Domain.Constants;
 using CinemAPI.Domain.Contracts.Models;
 using CinemAPI.Domain.Contracts.Models.ReservationModels;
 using CinemAPI.Models;
@@ -29,7 +30,7 @@ namespace CinemAPI.Domain.BuyTicketReservation
 
             await this.ticketRepository.Insert(ticket);
 
-            return new NewSummary(true);
+            return new NewSummary(true, StringConstants.TicketCreated);
         }
     }
 }

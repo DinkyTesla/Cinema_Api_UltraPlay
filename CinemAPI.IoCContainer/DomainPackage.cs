@@ -24,6 +24,7 @@ namespace CinemAPI.IoCContainer
     {
         public void RegisterServices(Container container)
         {
+            //Projections
             container.Register<INewProjection, NewProjectionCreation>();
             container.RegisterDecorator<INewProjection, NewProjectionPreviousOverlapValidation>();
             container.RegisterDecorator<INewProjection, NewProjectionNextOverlapValidation>();
@@ -32,22 +33,25 @@ namespace CinemAPI.IoCContainer
             container.RegisterDecorator<INewProjection, NewProjectionSeatValidation>();
             container.RegisterDecorator<INewProjection, NewProjectionUniqueValidation>();
             container.RegisterDecorator<INewProjection, NewProjectionPastTimeValidation>();
-
             
-
+            //Seats to add functionality.
             container.Register<IAvailableSeatsProjection, AvailableSeatProjectionStartedValidation>();
             container.RegisterDecorator<IAvailableSeatsProjection, AvailableSeatProjectionValidation>();
-
+            
+            //Cinema
             container.Register<INewCinema, NewCinemaCreation>();
             container.RegisterDecorator<INewCinema, NewCinemaUniqueValidation>();
 
+            //Movie
             container.Register<INewMovie, NewMovieCreation>();
             container.RegisterDecorator<INewMovie, NewMovieUniqueValidation>();
-
+          
+            //Movie
             container.Register<INewRoom, NewRoomCreation>();
             container.RegisterDecorator<INewRoom, NewRoomCinemaValidation>();
             container.RegisterDecorator<INewRoom, NewRoomUniqueValidation>();
-
+         
+            //Room
             container.Register<INewReservation, NewReservationCreation>();
             container.RegisterDecorator<INewReservation, NewReservationCheckIfSeatAvailableValidation>();
             container.RegisterDecorator<INewReservation, NewReservationProjectionStartingValidation>();
@@ -55,9 +59,11 @@ namespace CinemAPI.IoCContainer
             container.RegisterDecorator<INewReservation, NewReservationSeatValidation>();
             container.RegisterDecorator<INewReservation, NewReservationProjectionValidation>();
 
+            //Reservations
             container.Register<IDeleteReservation, DeleteReservation>();
             container.RegisterDecorator<IDeleteReservation, DeleteReservationUniqueValidation>();
 
+            //Tickets
             container.Register<INewTicket, NewTicketCreation>();
             container.RegisterDecorator<INewTicket, NewTicketCheckIfSeatAvailableValidation>();
             container.RegisterDecorator<INewTicket, NewTicketLateValidation>();

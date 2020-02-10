@@ -54,7 +54,7 @@
     <Compile Include="NewMovie\NewMovieCreation.cs" />
     <Compile Include="NewMovie\NewMovieUniqueValidation.cs" />
     <Compile Include="NewProjection\NewProjectionMovieValidation.cs" />
-    <Compile Include="NewProjection\NewProjectionPastTime.cs" />
+    <Compile Include="NewProjection\NewProjectionPastTimeValidation.cs" />
     <Compile Include="NewProjection\NewProjectionRoomValidation.cs" />
     <Compile Include="NewProjection\NewProjectionCreation.cs" />
     <Compile Include="NewProjection\NewProjectionNextOverlapValidation.cs" />

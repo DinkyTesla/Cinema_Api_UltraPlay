@@ -26,7 +26,7 @@ namespace CinemAPI.Domain.BuyTicketReservation
             IReservation reservation = await this.reservationRepository.GetById(id);
             DateTime projectionStartdate = await this.projRepo.GetProjectionStartDate(reservation.ProjectionId);
 
-            //TODO: should it be -10?
+            //TODO: check if time is correctly set.
             if (DateTime.Now.AddMinutes(10) >= projectionStartdate)
             {
                 int count = await this.reservationRepository.RemoveAllReservations(reservation.ProjectionId);

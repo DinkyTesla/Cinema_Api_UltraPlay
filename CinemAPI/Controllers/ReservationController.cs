@@ -31,6 +31,7 @@ namespace CinemAPI.Controllers
 
             if (summary.IsCreated)
             {
+                //TODO: add ticket object.
                 return Ok($"Reservation with ProjectionId:{model.ProjectionId}, SeatRow:{model.Row}, SeatColumn:{model.Column} has been created successfully!");
             }
             else
