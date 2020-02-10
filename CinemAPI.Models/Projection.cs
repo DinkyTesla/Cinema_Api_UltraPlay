@@ -1,5 +1,6 @@
 ﻿using CinemAPI.Models.Contracts.Projection;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CinemAPI.Models
@@ -15,6 +16,7 @@ namespace CinemAPI.Models
             this.MovieId = movieId;
             this.RoomId = roomId;
             this.StartDate = startdate;
+            //TODO: Should this be in the constructor as it is addet later in the Insert() method?
             this.AvailableSeatsCount = 0;
         }
 
@@ -45,5 +47,9 @@ namespace CinemAPI.Models
         public int AvailableSeatsCount { get; set; }
 
         public DateTime EndDate { get; set; }
+
+        public virtual ICollection<Reservation> Reservations { get; set; }
+
+        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }

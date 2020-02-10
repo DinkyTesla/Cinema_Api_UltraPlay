@@ -6,7 +6,7 @@
 
        int CinemaId { get; }
 
-       int Number { get; }
+       short Number { get; }
 
        short SeatsPerRow { get; }
 

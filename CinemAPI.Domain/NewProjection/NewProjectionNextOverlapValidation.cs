@@ -6,6 +6,7 @@ using CinemAPI.Models.Contracts.Projection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CinemAPI.Domain.NewProjection
 {
@@ -22,9 +23,9 @@ namespace CinemAPI.Domain.NewProjection
             this.newProj = newProj;
         }
 
-        public NewProjectionSummary New(IProjectionCreation proj)
+        public async Task<NewSummary> New(IProjectionCreation proj)
         {
-            IEnumerable<IProjection> movieProjectionsInRoom = projectRepo.GetActiveProjections(proj.RoomId);
+            IEnumerable<IProjection> movieProjectionsInRoom = this.projectRepo.GetActiveProjections(proj.RoomId);
 
             IProjection nextProjection = movieProjectionsInRoom.Where(x => x.StartDate > proj.StartDate)
                                                                        .OrderBy(x => x.StartDate)
@@ -32,18 +33,19 @@ namespace CinemAPI.Domain.NewProjection
 
             if (nextProjection != null)
             {
-                IMovie curMovie = movieRepo.GetById(proj.MovieId);
-                IMovie nextProjectionMovie = movieRepo.GetById(nextProjection.MovieId);
+                IMovie curMovie = await this.movieRepo.GetById(proj.MovieId);
+                IMovie nextProjectionMovie = await this.movieRepo.GetById(nextProjection.MovieId);
 
                 DateTime curProjectionEndTime = proj.StartDate.AddMinutes(curMovie.DurationMinutes);
 
                 if (curProjectionEndTime >= nextProjection.StartDate)
                 {
-                    return new NewProjectionSummary(false, $"Projection overlaps with next one: {nextProjectionMovie.Name} at {nextProjection.StartDate}");
+                    return new NewSummary(false, $"Projection overlaps with next one:" +
+                    $" {nextProjectionMovie.Name} at {nextProjection.StartDate}");
                 }
             }
 
-            return newProj.New(proj);
+            return await newProj.New(proj);
         }
     }
 }

@@ -2,15 +2,21 @@
 using CinemAPI.Models;
 using CinemAPI.Models.Contracts.Movie;
 using CinemAPI.Models.Contracts.Projection;
+using CinemAPI.Models.Contracts.Reservation;
 using CinemAPI.Models.Contracts.Room;
+using CinemAPI.Models.Contracts.Ticket;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CinemAPI.Data.Implementation
 {
     public class ProjectionRepository : IProjectionRepository
     {
+
+        //TODO: Async and methods.
         private readonly CinemaDbContext db;
 
         public ProjectionRepository(CinemaDbContext db)
@@ -37,26 +43,28 @@ namespace CinemAPI.Data.Implementation
         }
 
         //Method for getting a given Projection by only id.
-        public IProjection GetById(int projectionId)
+        public async Task<IProjection> GetById(long projectionId)
         {
-            return db.Projections.FirstOrDefault(x => x.Id == projectionId);
+            return await db.Projections.FirstOrDefaultAsync(x => x.Id == projectionId);
         }
 
-        public IProjection Get(int movieId, int roomId, DateTime startDate)
+        public async Task<IProjection> Get(int movieId, int roomId, DateTime startDate)
         {
-            return db.Projections.FirstOrDefault(x => x.MovieId == movieId &&
+            return await db.Projections.FirstOrDefaultAsync(x => x.MovieId == movieId &&
                                                       x.RoomId == roomId &&
                                                       x.StartDate == startDate);
         }
-        public IEnumerable<IProjection> GetActiveProjections(int roomId)
+
+        public async Task<IEnumerable<IProjection>> GetActiveProjections(int roomId)
         {
             DateTime now = DateTime.UtcNow;
 
-            return db.Projections.Where(x => x.RoomId == roomId &&
-                                             x.StartDate > now);
+            return await db.Projections.Where(x => x.RoomId == roomId &&
+                                             x.StartDate > now)
+                                             .ToListAsync();
         }
 
-        public void Insert(IProjectionCreation proj)
+        public async Task Insert(IProjectionCreation proj)
         {
             Projection newProj = new Projection(proj.MovieId, proj.RoomId, proj.StartDate);
 
@@ -66,7 +74,57 @@ namespace CinemAPI.Data.Implementation
             newProj.EndDate = CalculateEndDate(proj.MovieId, proj.StartDate);
 
             db.Projections.Add(newProj);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
+        }
+
+        //TODO: fix async
+        public async Task<bool> CheckIfSeatIsAvailable(long id, int row, int col)
+        {
+            IQueryable<IReservation> reservations = this.db.Reservations.Where(x => x.ProjectionId == id);
+
+            foreach (var reservation in reservations)
+            {
+                if (reservation.Row == row && reservation.Column == col)
+                {
+                    return false;
+                }
+            }
+
+            IQueryable<ITicket> tickets = this.db.Tickets.Where(x => x.ProjectionId == id);
+
+            foreach (var ticket in tickets)
+            {
+                if (ticket.Row == row && ticket.Column == col)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public async Task DecreaseAvailableSeats(long id)
+        {
+            var projection = await this.db.Projections.FirstOrDefaultAsync(x => x.Id == id);
+            projection.AvailableSeatsCount--;
+
+            await this.db.SaveChangesAsync();
+        }
+
+        public async Task IncreaseAvailableSeats(long id, int count)
+        {
+            var projection = await this.db.Projections.FirstOrDefaultAsync(x => x.Id == id);
+            projection.AvailableSeatsCount += count;
+
+            await this.db.SaveChangesAsync();
+        }
+
+        public async Task<DateTime> GetProjectionStartDate(long id)
+        {
+            return await this.db.Projections
+                .Where(x => x.Id == id)
+                .Select(x => x.StartDate)
+                .FirstOrDefaultAsync();
         }
     }
 }

@@ -3,6 +3,7 @@ using CinemAPI.Domain.Contracts;
 using CinemAPI.Domain.Contracts.Models;
 using CinemAPI.Models.Contracts.Movie;
 using CinemAPI.Models.Contracts.Projection;
+using System.Threading.Tasks;
 
 namespace CinemAPI.Domain.NewProjection
 {
@@ -17,16 +18,16 @@ namespace CinemAPI.Domain.NewProjection
             this.newProj = newProj;
         }
 
-        public NewProjectionSummary New(IProjectionCreation projection)
+        public async Task<NewSummary> New(IProjectionCreation projection)
         {
-            IMovie movie = movieRepo.GetById(projection.MovieId);
+            IMovie movie = await this.movieRepo.GetById(projection.MovieId);
 
             if (movie == null)
             {
-                return new NewProjectionSummary(false, $"Movie with id {projection.MovieId} does not exist");
+                return new NewSummary(false, $"Movie with id {projection.MovieId} does not exist");
             }
 
-            return newProj.New(projection);
+            return await newProj.New(projection);
         }
     }
 }

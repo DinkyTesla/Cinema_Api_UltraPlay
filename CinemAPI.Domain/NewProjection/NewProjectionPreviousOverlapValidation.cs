@@ -6,6 +6,7 @@ using CinemAPI.Models.Contracts.Projection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CinemAPI.Domain.NewProjection
 {
@@ -22,27 +23,28 @@ namespace CinemAPI.Domain.NewProjection
             this.newProj = proj;
         }
 
-        public NewProjectionSummary New(IProjectionCreation proj)
+        public async Task<NewSummary> New(IProjectionCreation proj)
         {
-            IEnumerable<IProjection> movieProjectionsInRoom = projectRepo.GetActiveProjections(proj.RoomId);
+            IEnumerable<IProjection> movieProjectionsInRoom = this.projectRepo.GetActiveProjections(proj.RoomId);
 
             IProjection previousProjection = movieProjectionsInRoom.Where(x => x.StartDate < proj.StartDate)
                                                                         .OrderByDescending(x => x.StartDate)
                                                                         .FirstOrDefault();
-
             if (previousProjection != null)
             {
-                IMovie previousProjectionMovie = movieRepo.GetById(previousProjection.MovieId);
+                IMovie previousProjectionMovie = await this.movieRepo.GetById(previousProjection.MovieId);
 
-                DateTime previousProjectionEnd = previousProjection.StartDate.AddMinutes(previousProjectionMovie.DurationMinutes);
+                DateTime previousProjectionEnd = previousProjection.StartDate
+                    .AddMinutes(previousProjectionMovie.DurationMinutes);
 
                 if (previousProjectionEnd >= proj.StartDate)
                 {
-                    return new NewProjectionSummary(false, $"Projection overlaps with previous one: {previousProjectionMovie.Name} at {previousProjection.StartDate}");
+                    return new NewSummary(false, $"Projection overlaps with previous one:" +
+                    $" {previousProjectionMovie.Name} at {previousProjection.StartDate}");
                 }
             }
 
-            return newProj.New(proj);
+            return await newProj.New(proj);
         }
     }
 }

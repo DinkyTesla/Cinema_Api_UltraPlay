@@ -13,7 +13,24 @@ namespace CinemAPI.Data.EF.ModelConfigurations
             projectionModel.Property(model => model.MovieId).IsRequired();
             projectionModel.Property(model => model.RoomId).IsRequired();
             projectionModel.Property(model => model.StartDate).IsRequired();
-            //TODO: Property AvailableSeatsCount?
+            //TODO: Property AvailableSeatsCount? End Date?
+
+            projectionModel
+                .HasMany(r => r.Reservations)
+                .WithRequired();
+            projectionModel
+                .HasMany(t => t.Tickets)
+                .WithRequired();
+
+            projectionModel
+                 .HasRequired(m => m.Movie)
+                 .WithMany(p => p.Projections)
+                 .HasForeignKey(x => x.MovieId);
+            projectionModel
+                 .HasRequired(r => r.Room)
+                 .WithMany(p => p.Projections)
+                 .HasForeignKey(x => x.RoomId);
+
         }
     }
 }

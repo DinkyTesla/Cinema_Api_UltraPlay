@@ -13,21 +13,21 @@ namespace CinemAPI.Models
         {
         }
 
-        public Ticket(int projectionId, short row, short col)
+        public Ticket(long projectionId, short row, short col)
         {
             this.ProjectionId = projectionId;
             this.Row = row;
-            this.Col = col;
+            this.Column = col;
         }
 
-        public Ticket(DateTime projectionStartDate, string movie, string cinema, short room, short row, short column, int projectionId)
+        public Ticket(DateTime projectionStartDate, string movieName, string cinemaName, short roomNumber, short row, short column, long projectionId)
         {
             this.ProjectionStartDate = projectionStartDate;
-            this.Movie = movie;
-            this.Cinema = cinema;
-            this.Room = room;
+            this.MovieName = movieName;
+            this.CinemaName = cinemaName;
+            this.RoomNumber = roomNumber;
             this.Row = row;
-            this.Col = column;
+            this.Column = column;
             this.ProjectionId = projectionId;
         }
 
@@ -35,18 +35,18 @@ namespace CinemAPI.Models
 
         public DateTime ProjectionStartDate { get; set; }
 
-        public string Movie { get; set; }
+        public string MovieName { get; set; }
 
-        public string Cinema { get; set; }
+        public string CinemaName { get; set; }
 
-        public short Room { get; set; }
+        public short RoomNumber { get; set; }
 
         public short Row { get; set; }
-             
-        public short Col { get; set; }
+
+        public short Column { get; set; }
 
         public long ProjectionId { get; set; }
 
-        public int MovieId { get; set; }
+        public Projection Projection { get; set; }
     }
 }

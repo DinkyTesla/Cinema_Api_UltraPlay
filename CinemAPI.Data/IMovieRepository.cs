@@ -1,13 +1,16 @@
 ﻿using CinemAPI.Models.Contracts.Movie;
+using System.Threading.Tasks;
 
 namespace CinemAPI.Data
 {
     public interface IMovieRepository
     {
-        IMovie GetById(int movieId);
+        Task<IMovie> GetById(int movieId);
 
-        IMovie GetByNameAndDuration(string name, short duration);
+        Task<IMovie> GetByNameAndDuration(string name, short duration);
 
-        void Insert(IMovieCreation movie);
+        Task Insert(IMovieCreation movie);
+
+        Task<string> GetMovieNameById(int id);
     }
 }

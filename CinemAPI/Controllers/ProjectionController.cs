@@ -74,7 +74,7 @@ namespace CinemAPI.Controllers
             //Catch errors for bad input data.
             if (ModelState.IsValid)
             {
-                NewProjectionSummary summary = newProj.New(new Projection(model.MovieId, model.RoomId, model.StartDate));
+                NewSummary summary = newProj.New(new Projection(model.MovieId, model.RoomId, model.StartDate));
 
                 if (summary.IsCreated)
                 {

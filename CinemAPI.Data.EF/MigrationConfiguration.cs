@@ -14,10 +14,10 @@ namespace CinemAPI.Data.EF
 
         protected override void Seed(CinemaDbContext context)
         {
-            SeedCinemas(context);
-            SeedMovies(context);
-            SeedRooms(context);
-            SeedProjections(context);
+            //SeedCinemas(context);
+            //SeedMovies(context);
+            //SeedRooms(context);
+            //SeedProjections(context);
         }
 
         private void SeedProjections(CinemaDbContext context)
