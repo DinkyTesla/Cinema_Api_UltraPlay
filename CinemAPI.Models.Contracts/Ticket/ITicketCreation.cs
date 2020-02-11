@@ -4,6 +4,8 @@ namespace CinemAPI.Models.Contracts.Ticket
 {
     public interface ITicketCreation
     {
+        int Id { get; set; }
+
         DateTime ProjectionStartDate { get; }
 
         string MovieName { get; }
@@ -17,5 +19,7 @@ namespace CinemAPI.Models.Contracts.Ticket
         short Column { get; }
         
         long ProjectionId { get; }
+
+        int MovieId { get; set; }
     }
 }

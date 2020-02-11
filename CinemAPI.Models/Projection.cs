@@ -16,7 +16,7 @@ namespace CinemAPI.Models
             this.MovieId = movieId;
             this.RoomId = roomId;
             this.StartDate = startdate;
-            //TODO: Should this be in the constructor as it is addet later in the Insert() method?
+            //TODO: Should this be in the constructor as it is added later in the Insert() method?
             this.AvailableSeatsCount = 0;
         }
 

@@ -1,4 +1,5 @@
 ﻿using CinemAPI.Models.Contracts.Reservation;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CinemAPI.Data
@@ -11,6 +12,8 @@ namespace CinemAPI.Data
 
         Task RemoveReservation(int id);
 
-        Task<int> RemoveAllReservations(long id);
+        Task RemoveReservations(IEnumerable<IReservation> reservations);
+
+        //Task<int> RemoveAllReservations(long id);
     }
 }

@@ -16,8 +16,14 @@ namespace CinemAPI.Models
             this.Column = column;
         }
 
-        public Reservation(DateTime projectionStartDate, string movieName,
-            string cinemaName, short roomNumber, short row, short column, long projectionId)
+        public Reservation(
+            DateTime projectionStartDate,
+            string movieName,
+            string cinemaName, 
+            short roomNumber, 
+            short row, 
+            short column, 
+            long projectionId)
         {
             this.ProjectionStartDate = projectionStartDate;
             this.MovieName = movieName;
@@ -45,5 +51,10 @@ namespace CinemAPI.Models
         public long ProjectionId { get; set; }
 
         public Projection Projection { get; set; }
+
+        //TODO: should be implemented?
+        public int MovieId { get ; set ; }
+
+        public int RoomId { get ; set ; }
     }
 }

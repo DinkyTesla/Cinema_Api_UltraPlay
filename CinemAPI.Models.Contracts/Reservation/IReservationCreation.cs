@@ -4,6 +4,8 @@ namespace CinemAPI.Models.Contracts.Reservation
 {
     public interface IReservationCreation
     {
+        int Id { get; }
+
         DateTime ProjectionStartDate { get; }
 
         string MovieName { get; }
@@ -19,8 +21,8 @@ namespace CinemAPI.Models.Contracts.Reservation
         long ProjectionId { get; }
 
         //TODO: Should this be here?
-        //int MovieId { get; set; }
+        int MovieId { get; }
 
-        //int RoomId { get; set; }
+        int RoomId { get; }
     }
 }

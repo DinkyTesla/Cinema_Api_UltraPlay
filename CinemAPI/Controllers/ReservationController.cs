@@ -3,6 +3,7 @@ using CinemAPI.Domain.Contracts.Models.Reservation;
 using CinemAPI.Domain.Contracts.Models.ReservationModels;
 using CinemAPI.Models;
 using CinemAPI.Models.Input.Reservation;
+using CinemAPI.Models.ModelFactory;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -14,13 +15,21 @@ namespace CinemAPI.Controllers
         private readonly INewReservation newReservation;
         private readonly IDeleteReservation deleteReservation;
         private readonly IBuyTicket buyTicket;
+        private readonly IModelFactory modelFactory;
 
-        public ReservationController(INewReservation newReservation
-            , IDeleteReservation deleteReservation, IBuyTicket buyTicket)
+
+        public ReservationController(
+            INewReservation newReservation, 
+            IDeleteReservation deleteReservation, 
+            IBuyTicket buyTicket,
+            IModelFactory modelFactory
+            )
         {
             this.newReservation = newReservation;
             this.deleteReservation = deleteReservation;
             this.buyTicket = buyTicket;
+            this.modelFactory = modelFactory;
+
         }
 
         [HttpPost]
@@ -31,8 +40,8 @@ namespace CinemAPI.Controllers
 
             if (summary.IsCreated)
             {
-                //TODO: add ticket object.
-                return Ok($"Reservation with ProjectionId:{model.ProjectionId}, SeatRow:{model.Row}, SeatColumn:{model.Column} has been created successfully!");
+                //DONE: add ticket object.
+                return Ok(summary.Message);
             }
             else
             {

@@ -18,6 +18,6 @@ namespace CinemAPI.Models.Contracts.Ticket
 
         short Column { get; }
 
-        long ProjectionId { get; }
+        //long ProjectionId { get; }
     }
 }
