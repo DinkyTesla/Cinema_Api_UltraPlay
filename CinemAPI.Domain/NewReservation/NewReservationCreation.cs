@@ -1,6 +1,7 @@
 ﻿using CinemAPI.Data;
 using CinemAPI.Domain.Contracts.Models;
 using CinemAPI.Domain.Contracts.Models.Reservation;
+using CinemAPI.Domain.Contracts.Models.ReservationModels;
 using CinemAPI.Models;
 using CinemAPI.Models.Contracts.Projection;
 using CinemAPI.Models.Contracts.Reservation;
@@ -16,8 +17,12 @@ namespace CinemAPI.Domain.NewReservation
         private readonly IReservationRepository reservationRepo;
         private readonly ICinemaRepository cinemaRepo;
 
-        public NewReservationCreation(IProjectionRepository projRepo, IMovieRepository movieRepo,
-                    IRoomRepository roomRepo, IReservationRepository reservationRepo, ICinemaRepository cinemaRepo)
+        public NewReservationCreation(
+            IProjectionRepository projRepo, 
+            IMovieRepository movieRepo,
+            IRoomRepository roomRepo, 
+            IReservationRepository reservationRepo, 
+            ICinemaRepository cinemaRepo)
         {
             this.projRepo = projRepo;
             this.movieRepo = movieRepo;
@@ -26,20 +31,55 @@ namespace CinemAPI.Domain.NewReservation
             this.cinemaRepo = cinemaRepo;
         }
 
-        public async Task<NewSummary> New(IReservationCreation reservation)
+        public async Task<NewReservationSummary> New(IReservationCreation reservation)
         {
             IProjection projection = await this.projRepo.GetById(reservation.ProjectionId);
 
             await this.projRepo.DecreaseAvailableSeats(projection.Id);
 
             string movieName = await this.movieRepo.GetMovieNameById(projection.MovieId);
+
             var room = await this.roomRepo.GetById(projection.RoomId);
+
             string cinemaName = await this.cinemaRepo.GetCinemaNameById(room.CinemaId);
 
-            await this.reservationRepo.Insert(new Reservation(projection.StartDate, movieName,
-                    cinemaName, room.Number, reservation.Row, reservation.Column, projection.Id));
+            var newReservation = new Reservation(
+                projection.StartDate,
+                    movieName,
+                    cinemaName,
+                    room.Number,
+                    reservation.Row,
+                    reservation.Column,
+                    projection.Id);
 
-            return new NewSummary(true);
+            //await this.reservationRepo.Insert(
+            //    new Reservation(
+            //        projection.StartDate,
+            //        movieName,
+            //        cinemaName,
+            //        room.Number,
+            //        reservation.Row,
+            //        reservation.Column,
+            //        projection.Id));
+
+            //var newReservation = new Reservation(
+
+            //  reservation.ProjectionStartDate,
+            //  reservation.MovieName,
+            //  reservation.CinemaName,
+            //  reservation.RoomNumber,
+            //  reservation.Row,
+            //  reservation.Column,
+            //  reservation.ProjectionId);
+
+            await this.reservationRepo.Insert(newReservation);
+
+            var result = new NewReservationSummary(true)
+            {
+                Reservation = newReservation
+            };
+
+            return result;
         }
     }
 }

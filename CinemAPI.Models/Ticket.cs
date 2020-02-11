@@ -48,5 +48,7 @@ namespace CinemAPI.Models
         public long ProjectionId { get; set; }
 
         public Projection Projection { get; set; }
+
+        public int MovieId { get ; set ; }
     }
 }

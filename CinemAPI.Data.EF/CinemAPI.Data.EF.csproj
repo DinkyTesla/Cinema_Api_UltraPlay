@@ -58,6 +58,10 @@
     <Compile Include="Migrations\202002101624212_BigBang.Designer.cs">
       <DependentUpon>202002101624212_BigBang.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002110928238_ObjectBigBang.cs" />
+    <Compile Include="Migrations\202002110928238_ObjectBigBang.Designer.cs">
+      <DependentUpon>202002110928238_ObjectBigBang.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelConfigurations\CinemaModelConfiguration.cs" />
     <Compile Include="IModelConfiguration.cs" />
@@ -86,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002101624212_BigBang.resx">
       <DependentUpon>202002101624212_BigBang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002110928238_ObjectBigBang.resx">
+      <DependentUpon>202002110928238_ObjectBigBang.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

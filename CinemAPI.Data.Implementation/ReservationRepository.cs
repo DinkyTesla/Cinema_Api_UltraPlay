@@ -40,20 +40,20 @@ namespace CinemAPI.Data.Implementation
             await this.db.SaveChangesAsync();
         }
 
-        //public async Task<int> RemoveAllReservations(long id)
-        //{
-        //    IQueryable<Reservation> reservations = this.db.Reservations.Where(x => x.ProjectionId == id);
-        //    var count = reservations.Count();
+        public async Task<int> RemoveAllReservations(long id)
+        {
+            IQueryable<Reservation> reservations = this.db.Reservations.Where(x => x.ProjectionId == id);
+            var count = reservations.Count();
 
-        //    foreach (var reservation in reservations)
-        //    {
-        //        this.db.Reservations.Remove(reservation);
-        //    }
+            foreach (var reservation in reservations)
+            {
+                this.db.Reservations.Remove(reservation);
+            }
 
-        //    await this.db.SaveChangesAsync();
+            await this.db.SaveChangesAsync();
 
-        //    return count;
-        //}
+            return count;
+        }
 
         public async Task RemoveReservations(IEnumerable<IReservation> reservations)
         {
@@ -70,9 +70,8 @@ namespace CinemAPI.Data.Implementation
             var reservation = await this.db.Reservations.FirstOrDefaultAsync(x => x.Id == id);
 
             this.db.Reservations.Remove(reservation);
+
             await this.db.SaveChangesAsync();
         }
-
-
     }
 }

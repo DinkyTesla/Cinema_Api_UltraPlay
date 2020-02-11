@@ -1,10 +1,11 @@
-﻿using CinemAPI.Models.Contracts.Ticket;
+﻿using CinemAPI.Domain.Contracts.Models.TicketModels;
+using CinemAPI.Models.Contracts.Ticket;
 using System.Threading.Tasks;
 
 namespace CinemAPI.Domain.Contracts.Models.Ticket
 {
     public interface INewTicket
     {
-        Task<NewSummary> New(ITicketCreation ticket);
+        Task<NewTicketSummary> New(ITicketCreation ticket);
     }
 }

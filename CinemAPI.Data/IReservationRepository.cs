@@ -14,6 +14,6 @@ namespace CinemAPI.Data
 
         Task RemoveReservations(IEnumerable<IReservation> reservations);
 
-        //Task<int> RemoveAllReservations(long id);
+        Task<int> RemoveAllReservations(long id);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CinemAPI.Data;
 using CinemAPI.Domain.Contracts.Models;
 using CinemAPI.Domain.Contracts.Models.Ticket;
+using CinemAPI.Domain.Contracts.Models.TicketModels;
 using CinemAPI.Models.Contracts.Projection;
 using CinemAPI.Models.Contracts.Ticket;
 using System.Threading.Tasks;
@@ -18,13 +19,13 @@ namespace CinemAPI.Domain.NewTicket
             this.newTicket = newTicket;
         }
 
-        public async Task<NewSummary> New(ITicketCreation model)
+        public async Task<NewTicketSummary> New(ITicketCreation model)
         {
             IProjection projection = await this.projRepo.GetById(model.ProjectionId);
 
             if (projection == null)
             {
-                return new NewSummary(false, $"Projection with id {model.ProjectionId} does not exist");
+                return new NewTicketSummary(false, $"Projection with id {model.ProjectionId} does not exist");
             }
 
             return await newTicket.New(model);

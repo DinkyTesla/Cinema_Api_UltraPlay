@@ -1,6 +1,7 @@
 ﻿using CinemAPI.Data;
 using CinemAPI.Domain.Contracts.Models;
 using CinemAPI.Domain.Contracts.Models.Ticket;
+using CinemAPI.Domain.Contracts.Models.TicketModels;
 using CinemAPI.Models.Contracts.Ticket;
 using System.Threading.Tasks;
 
@@ -19,7 +20,7 @@ namespace CinemAPI.Domain.NewTicket
             this.projRepo = projRepo;
         }
 
-        public async Task<NewSummary> New(ITicketCreation ticket)
+        public async Task<NewTicketSummary> New(ITicketCreation ticket)
         {
             var projection = await this.projRepo.GetById(ticket.ProjectionId);
             var room = await this.roomRepo.GetById(projection.RoomId);
@@ -27,7 +28,7 @@ namespace CinemAPI.Domain.NewTicket
             if (ticket.Row < 0 || ticket.Row > room.SeatsPerRow ||
                 ticket.Column < 0 || ticket.Column > room.Rows)
             {
-                return new NewSummary(false, $"Seat with position row: {ticket.Row}" +
+                return new NewTicketSummary(false, $"Seat with position row: {ticket.Row}" +
                     $" and column: {ticket.Column} does not exist");
             }
 

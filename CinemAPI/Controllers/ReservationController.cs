@@ -20,28 +20,29 @@ namespace CinemAPI.Controllers
 
         public ReservationController(
             INewReservation newReservation, 
-            IDeleteReservation deleteReservation, 
+            IModelFactory modelFactory,
             IBuyTicket buyTicket,
-            IModelFactory modelFactory
+            IDeleteReservation deleteReservation
             )
         {
             this.newReservation = newReservation;
             this.deleteReservation = deleteReservation;
             this.buyTicket = buyTicket;
             this.modelFactory = modelFactory;
-
         }
 
         [HttpPost]
         public async Task<IHttpActionResult> Index(ReservationCreationModel model)
         {
-            NewSummary summary = await this.newReservation.New
-                (new Reservation(model.ProjectionId, model.Row, model.Column));
+            NewReservationSummary summary = await this.newReservation.New(
+                    new Reservation(model.ProjectionId, model.Row, model.Column)
+                    );
 
             if (summary.IsCreated)
             {
                 //DONE: add ticket object.
-                return Ok(summary.Message);
+                var ticketObj = this.modelFactory.Create(summary.Reservation);
+                return Ok(ticketObj);
             }
             else
             {

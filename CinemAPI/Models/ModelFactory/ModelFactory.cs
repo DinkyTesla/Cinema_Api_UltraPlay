@@ -9,9 +9,9 @@ using System.Web;
 
 namespace CinemAPI.Models.ModelFactory
 {
-    public class ModelFactory
+    public class ModelFactory : IModelFactory
     {
-        public ReservationTicketModel Create(IReservationCreation model)
+        public ReservationTicketModel Create(IReservation model)
         {
             return new ReservationTicketModel()
             {
@@ -25,7 +25,7 @@ namespace CinemAPI.Models.ModelFactory
             };
         }
 
-        public TicketModel Create(ITicketCreation model)
+        public TicketModel Create(ITicket model)
         {
             return new TicketModel()
             {

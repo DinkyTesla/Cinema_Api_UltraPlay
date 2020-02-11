@@ -11,6 +11,6 @@ namespace CinemAPI.Models.ModelFactory
 
         ReservationTicketModel Create(IReservation model);
 
-        TicketModel Create(ITicketCreation model);
+        TicketModel Create(ITicket model);
     }
 }

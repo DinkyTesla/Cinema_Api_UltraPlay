@@ -2,6 +2,7 @@
 using CinemAPI.Domain.Constants;
 using CinemAPI.Domain.Contracts.Models;
 using CinemAPI.Domain.Contracts.Models.Ticket;
+using CinemAPI.Domain.Contracts.Models.TicketModels;
 using CinemAPI.Models.Contracts.Projection;
 using CinemAPI.Models.Contracts.Ticket;
 using System;
@@ -23,14 +24,16 @@ namespace CinemAPI.Domain.NewTicket
             this.newTicket = newTicket;
         }
 
-        public async Task<NewSummary> New(ITicketCreation ticket)
+        public async Task<NewTicketSummary> New(ITicketCreation ticket)
         {
             IProjection projection = await this.projRepo.GetById(ticket.ProjectionId);
+
             DateTime projectionStartdate = await this.projRepo.GetProjectionStartDate(projection.Id);
 
             if (DateTime.Now.AddMinutes(10) >= projectionStartdate)
             {
                 int count = await this.reservationRepository.RemoveAllReservations(projection.Id);
+
                 await this.projRepo.IncreaseAvailableSeats(projection.Id, count);
             }
 
@@ -39,7 +42,7 @@ namespace CinemAPI.Domain.NewTicket
 
             if (available == false)
             {
-                return new NewSummary(false, StringConstants.OccupiedPlace);
+                return new NewTicketSummary(false, StringConstants.OccupiedPlace);
             }
 
             return await newTicket.New(ticket);

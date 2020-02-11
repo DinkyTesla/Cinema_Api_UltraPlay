@@ -1,6 +1,8 @@
 ﻿using CinemAPI.Data;
+using CinemAPI.Domain.Constants;
 using CinemAPI.Domain.Contracts.Models;
 using CinemAPI.Domain.Contracts.Models.Ticket;
+using CinemAPI.Domain.Contracts.Models.TicketModels;
 using CinemAPI.Models;
 using CinemAPI.Models.Contracts.Projection;
 using CinemAPI.Models.Contracts.Ticket;
@@ -26,18 +28,29 @@ namespace CinemAPI.Domain.NewTicket
             this.ticketRepo = ticketRepo;
         }
 
-        public async Task<NewSummary> New(ITicketCreation ticket)
+        public async Task<NewTicketSummary> New(ITicketCreation ticket)
         {
             IProjection projection = await this.projRepo.GetById(ticket.ProjectionId);
+
             await this.projRepo.DecreaseAvailableSeats(projection.Id);
+
             string movieName = await this.movieRepo.GetMovieNameById(projection.MovieId);
+
             var room = await this.roomRepo.GetById(projection.RoomId);
+
             var cinemaName = await this.cinemaRepo.GetCinemaNameById(room.CinemaId);
 
-            await this.ticketRepo.Insert(new Ticket(projection.StartDate, movieName,
-                    cinemaName, room.Number, ticket.Row, ticket.Column, projection.Id));
+            await this.ticketRepo.Insert(
+                new Ticket(
+                    projection.StartDate, 
+                    movieName,
+                    cinemaName, 
+                    room.Number, 
+                    ticket.Row, 
+                    ticket.Column, 
+                    projection.Id));
 
-            return new NewSummary(true);
+            return new NewTicketSummary(true, StringConstants.TicketCreated);
         }
     }
 }

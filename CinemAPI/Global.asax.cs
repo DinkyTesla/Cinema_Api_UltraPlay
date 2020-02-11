@@ -1,4 +1,5 @@
 ﻿using CinemAPI.IoCContainer;
+using CinemAPI.Models.ModelFactory;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.WebApi;
@@ -24,6 +25,8 @@ namespace CinemAPI
             {
                 package.RegisterServices(container);
             }
+
+            container.Register<IModelFactory, ModelFactory>();
 
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
             container.Verify();

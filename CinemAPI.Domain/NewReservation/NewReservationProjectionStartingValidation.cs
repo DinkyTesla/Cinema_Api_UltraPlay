@@ -2,6 +2,7 @@
 using CinemAPI.Domain.Constants;
 using CinemAPI.Domain.Contracts.Models;
 using CinemAPI.Domain.Contracts.Models.Reservation;
+using CinemAPI.Domain.Contracts.Models.ReservationModels;
 using CinemAPI.Models.Contracts.Reservation;
 using System;
 using System.Threading.Tasks;
@@ -19,14 +20,14 @@ namespace CinemAPI.Domain.NewReservation
             this.newReservation = newReservation;
         }
 
-        public async Task<NewSummary> New(IReservationCreation model)
+        public async Task<NewReservationSummary> New(IReservationCreation model)
         {
             DateTime projectionStartDate = await this.projRepo.GetProjectionStartDate(model.ProjectionId);
 
             //TODO: Check minutes?
             if (DateTime.Now.AddMinutes(10) > projectionStartDate)
             {
-                return new NewSummary(false, StringConstants.ProjectionIsStarting);
+                return new NewReservationSummary(false, StringConstants.ProjectionIsStarting);
             }
 
             return await newReservation.New(model);

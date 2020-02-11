@@ -47,10 +47,13 @@
     <Compile Include="Models\ProjectionModels\ICheckSeatsProjection.cs" />
     <Compile Include="Models\ProjectionModels\INewProjection.cs" />
     <Compile Include="Models\ReservationModels\IBuyTicket.cs" />
+    <Compile Include="Models\ReservationModels\ICancelReservation.cs" />
     <Compile Include="Models\ReservationModels\IDeleteReservation.cs" />
     <Compile Include="Models\ReservationModels\INewReservation.cs" />
+    <Compile Include="Models\ReservationModels\NewReservationSummary.cs" />
     <Compile Include="Models\RoomModels\INewRoom.cs" />
     <Compile Include="Models\TicketModels\INewTicket.cs" />
+    <Compile Include="Models\TicketModels\NewTicketSummary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

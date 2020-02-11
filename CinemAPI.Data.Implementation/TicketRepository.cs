@@ -16,8 +16,14 @@ namespace CinemAPI.Data.Implementation
 
         public async Task Insert(ITicketCreation ticket)
         {
-            Ticket newTicket = new Ticket(ticket.ProjectionStartDate, ticket.MovieName,
-                ticket.CinemaName, ticket.RoomNumber, ticket.Row, ticket.Column, ticket.ProjectionId);
+            Ticket newTicket = new Ticket(
+                ticket.ProjectionStartDate, 
+                ticket.MovieName,
+                ticket.CinemaName, 
+                ticket.RoomNumber,
+                ticket.Row, 
+                ticket.Column, 
+                ticket.ProjectionId);
 
             this.db.Tickets.Add(newTicket);
 

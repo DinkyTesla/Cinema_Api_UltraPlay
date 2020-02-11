@@ -23,8 +23,15 @@ namespace CinemAPI.Domain.BuyTicketReservation
         {
             IReservation reservation = await this.reservationRepository.GetById(id);
 
-            Ticket ticket = new Ticket(reservation.ProjectionStartDate, reservation.MovieName, reservation.CinemaName,
-                reservation.RoomNumber, reservation.Row, reservation.Column, reservation.ProjectionId);
+            Ticket ticket = new Ticket(
+                reservation.ProjectionStartDate, 
+                reservation.MovieName, 
+                reservation.CinemaName,
+                reservation.RoomNumber, 
+                reservation.Row, 
+                reservation.Column, 
+                reservation.ProjectionId
+                );
 
             await this.reservationRepository.RemoveReservation(reservation.Id);
 
