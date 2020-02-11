@@ -104,7 +104,7 @@ namespace CinemAPI.Data.Implementation
             return true;
         }
 
-        //TODO: check if it decreases.
+        //DONE: check if it decreases.
         public async Task DecreaseAvailableSeats(long id)
         {
             var projection = await this.db.Projections.FirstOrDefaultAsync(p => p.Id == id);

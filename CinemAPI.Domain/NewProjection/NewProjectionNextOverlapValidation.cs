@@ -28,7 +28,7 @@ namespace CinemAPI.Domain.NewProjection
             IEnumerable<IProjection> movieProjectionsInRoom = await this.projectRepo.GetActiveProjections(projection.RoomId);
 
             //TODO: add await?
-            IProjection nextProjection = movieProjectionsInRoom.Where(x => x.StartDate > projection.StartDate)
+            IProjection nextProjection =  movieProjectionsInRoom.Where(x => x.StartDate > projection.StartDate)
                                                                        .OrderBy(x => x.StartDate)
                                                                        .FirstOrDefault();
             //TODO: Take Endate from table.

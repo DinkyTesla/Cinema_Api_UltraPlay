@@ -12,15 +12,11 @@ namespace CinemAPI.Controllers
     public class TicketController : ApiController
     {
         private readonly INewTicket newTicket;
-        private readonly IModelFactory modelFactory;
+        //private readonly IModelFactory modelFactory;
 
-        
-
-
-        public TicketController(INewTicket newTicket, IModelFactory modelFactory)
+        public TicketController(INewTicket newTicket)
         {
             this.newTicket = newTicket;
-            this.modelFactory = modelFactory;
         }
 
         [HttpPost]
@@ -31,13 +27,13 @@ namespace CinemAPI.Controllers
 
             if (summary.IsCreated)
             {
-                var ticketObj = this.modelFactory.Create(summary.TicketReservation);
-                return Ok(ticketObj);
+                return Ok(summary.Message);
             }
             else
             {
                 return BadRequest(summary.Message);
             }
         }
+
     }
 }

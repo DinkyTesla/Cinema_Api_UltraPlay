@@ -8,7 +8,7 @@ namespace CinemAPI.Data
 {
     public interface IProjectionRepository
     {
-        //TODO: Async, Methods
+        //DONE: Async, Methods
         //Method for initialize the seats based on the all seats in the room.
         int InitialSeats(int roomId);
 

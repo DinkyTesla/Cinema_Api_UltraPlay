@@ -49,7 +49,7 @@ namespace CinemAPI.Domain.NewTicket
                     ticket.Row, 
                     ticket.Column, 
                     projection.Id));
-
+            //TODO: remove message?
             return new NewTicketSummary(true, StringConstants.TicketCreated);
         }
     }

@@ -19,7 +19,7 @@ namespace CinemAPI.Domain
         public async Task<NewSummary> New(IProjectionCreation projection)
         {
             await projectionsRepo.Insert(new Projection(projection.MovieId, projection.RoomId, projection.StartDate));
-            //TODO: Add appropriate message.
+            //DONE: Add appropriate message. In the controller.
             return new NewSummary(true);
         }
     }
