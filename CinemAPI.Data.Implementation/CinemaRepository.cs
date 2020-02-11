@@ -18,7 +18,7 @@ namespace CinemAPI.Data.Implementation
 
         public async Task<ICinema> GetById(int id)
         {
-            return await this.db.Cinemas.FirstOrDefaultAsync(x => x.Id == id);
+            return await this.db.Cinemas.FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<ICinema> GetByNameAndAddress(string name, string address)
@@ -40,7 +40,7 @@ namespace CinemAPI.Data.Implementation
         public async Task<string> GetCinemaNameById(int id)
         {
             return await this.db.Cinemas
-                .Where(x => x.Id == id)
+                .Where(c => c.Id == id)
                 .Select(x => x.Name)
                 .FirstOrDefaultAsync();
         }

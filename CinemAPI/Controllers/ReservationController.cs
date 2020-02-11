@@ -17,7 +17,6 @@ namespace CinemAPI.Controllers
         private readonly IBuyTicket buyTicket;
         private readonly IModelFactory modelFactory;
 
-
         public ReservationController(
             INewReservation newReservation, 
             IModelFactory modelFactory,
@@ -35,8 +34,7 @@ namespace CinemAPI.Controllers
         public async Task<IHttpActionResult> Index(ReservationCreationModel model)
         {
             NewReservationSummary summary = await this.newReservation.New(
-                    new Reservation(model.ProjectionId, model.Row, model.Column)
-                    );
+                    new Reservation(model.ProjectionId, model.Row, model.Column));
 
             if (summary.IsCreated)
             {

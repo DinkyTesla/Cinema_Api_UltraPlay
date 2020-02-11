@@ -20,7 +20,13 @@ namespace CinemAPI.Models
             this.Column = col;
         }
 
-        public Ticket(DateTime projectionStartDate, string movieName, string cinemaName, short roomNumber, short row, short column, long projectionId)
+        public Ticket(DateTime projectionStartDate, 
+                        string movieName,
+                        string cinemaName, 
+                        short roomNumber, 
+                        short row, 
+                        short column, 
+                        long projectionId)
         {
             this.ProjectionStartDate = projectionStartDate;
             this.MovieName = movieName;

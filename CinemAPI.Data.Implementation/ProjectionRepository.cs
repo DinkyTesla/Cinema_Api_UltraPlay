@@ -16,7 +16,7 @@ namespace CinemAPI.Data.Implementation
     public class ProjectionRepository : IProjectionRepository
     {
 
-        //TODO: Async and methods.
+        //DONE: Async and methods.
         private readonly CinemaDbContext db;
 
         public ProjectionRepository(CinemaDbContext db)
@@ -45,23 +45,23 @@ namespace CinemAPI.Data.Implementation
         //Method for getting a given Projection by only id.
         public async Task<IProjection> GetById(long projectionId)
         {
-            return await db.Projections.FirstOrDefaultAsync(x => x.Id == projectionId);
+            return await db.Projections.FirstOrDefaultAsync(p => p.Id == projectionId);
         }
 
         public async Task<IProjection> Get(int movieId, int roomId, DateTime startDate)
         {
-            return await db.Projections.FirstOrDefaultAsync(x => x.MovieId == movieId &&
-                                                      x.RoomId == roomId &&
-                                                      x.StartDate == startDate);
+            return await db.Projections.FirstOrDefaultAsync(p => p.MovieId == movieId &&
+                                                      p.RoomId == roomId &&
+                                                      p.StartDate == startDate);
         }
 
         public async Task<IEnumerable<IProjection>> GetActiveProjections(int roomId)
         {
-            //TODO: fix time
+            //DONE: fix time
             DateTime now = DateTime.Now;
 
-            return await db.Projections.Where(x => x.RoomId == roomId &&
-                                             x.StartDate > now)
+            return await db.Projections.Where(p => p.RoomId == roomId &&
+                                             p.StartDate > now)
                                              .ToListAsync();
         }
 
@@ -81,7 +81,7 @@ namespace CinemAPI.Data.Implementation
         //TODO: fix async
         public async Task<bool> CheckIfSeatIsAvailable(long id, int row, int col)
         {
-            IQueryable<IReservation> reservations =  this.db.Reservations.Where(x => x.ProjectionId == id);
+            IQueryable<IReservation> reservations =  this.db.Reservations.Where(p => p.ProjectionId == id);
 
             foreach (var reservation in reservations)
             {
@@ -91,7 +91,7 @@ namespace CinemAPI.Data.Implementation
                 }
             }
 
-            IQueryable<ITicket> tickets =  this.db.Tickets.Where(x => x.ProjectionId == id);
+            IQueryable<ITicket> tickets =  this.db.Tickets.Where(p => p.ProjectionId == id);
 
             foreach (var ticket in tickets)
             {
@@ -104,9 +104,10 @@ namespace CinemAPI.Data.Implementation
             return true;
         }
 
+        //TODO: check if it decreases.
         public async Task DecreaseAvailableSeats(long id)
         {
-            var projection = await this.db.Projections.FirstOrDefaultAsync(x => x.Id == id);
+            var projection = await this.db.Projections.FirstOrDefaultAsync(p => p.Id == id);
             projection.AvailableSeatsCount--;
 
             await this.db.SaveChangesAsync();
@@ -114,7 +115,7 @@ namespace CinemAPI.Data.Implementation
 
         public async Task IncreaseAvailableSeats(long id, int count)
         {
-            var projection = await this.db.Projections.FirstOrDefaultAsync(x => x.Id == id);
+            var projection = await this.db.Projections.FirstOrDefaultAsync(p => p.Id == id);
             projection.AvailableSeatsCount += count;
 
             await this.db.SaveChangesAsync();

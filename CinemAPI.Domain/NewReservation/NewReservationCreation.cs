@@ -44,7 +44,7 @@ namespace CinemAPI.Domain.NewReservation
             string cinemaName = await this.cinemaRepo.GetCinemaNameById(room.CinemaId);
 
             var newReservation = new Reservation(
-                projection.StartDate,
+                    projection.StartDate,
                     movieName,
                     cinemaName,
                     room.Number,
@@ -52,27 +52,9 @@ namespace CinemAPI.Domain.NewReservation
                     reservation.Column,
                     projection.Id);
 
-            //await this.reservationRepo.Insert(
-            //    new Reservation(
-            //        projection.StartDate,
-            //        movieName,
-            //        cinemaName,
-            //        room.Number,
-            //        reservation.Row,
-            //        reservation.Column,
-            //        projection.Id));
-
-            //var newReservation = new Reservation(
-
-            //  reservation.ProjectionStartDate,
-            //  reservation.MovieName,
-            //  reservation.CinemaName,
-            //  reservation.RoomNumber,
-            //  reservation.Row,
-            //  reservation.Column,
-            //  reservation.ProjectionId);
-
             await this.reservationRepo.Insert(newReservation);
+
+            newReservation.Id = newReservation.Id;
 
             var result = new NewReservationSummary(true)
             {

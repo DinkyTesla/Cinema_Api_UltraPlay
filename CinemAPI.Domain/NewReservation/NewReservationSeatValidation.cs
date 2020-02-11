@@ -25,6 +25,8 @@ namespace CinemAPI.Domain.NewReservation
             var projection = await this.projRepo.GetById(reservation.ProjectionId);
             var room = await this.roomRepo.GetById(projection.RoomId);
 
+            //TODO get room ID
+
             if (reservation.Row < 0 || reservation.Row > room.SeatsPerRow ||
                 reservation.Column < 0 || reservation.Column > room.Rows)
             {

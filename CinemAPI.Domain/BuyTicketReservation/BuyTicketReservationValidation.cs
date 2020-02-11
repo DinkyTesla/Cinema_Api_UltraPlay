@@ -2,6 +2,7 @@
 using CinemAPI.Domain.Constants;
 using CinemAPI.Domain.Contracts.Models;
 using CinemAPI.Domain.Contracts.Models.ReservationModels;
+using CinemAPI.Domain.Contracts.Models.TicketModels;
 using CinemAPI.Models.Contracts.Reservation;
 using System.Threading.Tasks;
 
@@ -18,13 +19,13 @@ namespace CinemAPI.Domain.BuyTicketReservation
             this.buyTicket = buyTicket;
         }
 
-        public async Task<NewSummary> Buy(int id)
+        public async Task<NewTicketSummary> Buy(int id)
         {
             IReservation reservation = await this.reservationRepo.GetById(id);
 
             if (reservation == null)
             {
-                return new NewSummary(false, StringConstants.ReservationDoesNotExist);
+                return new NewTicketSummary(false, StringConstants.ReservationDoesNotExist);
             }
 
             return await buyTicket.Buy(id);

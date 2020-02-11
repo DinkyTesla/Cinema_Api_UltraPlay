@@ -1,13 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
-using CinemAPI.Data;
 using CinemAPI.Domain.Constants;
-using CinemAPI.Domain.Contracts;
 using CinemAPI.Domain.Contracts.Models;
 using CinemAPI.Domain.Contracts.Models.ProjectionModels;
 using CinemAPI.Models;
-using CinemAPI.Models.Contracts.Projection;
 using CinemAPI.Models.Input.Projection;
 
 namespace CinemAPI.Controllers
@@ -69,28 +65,6 @@ namespace CinemAPI.Controllers
         //    return Ok($"Available seats for this projection: {projection.AvailableSeatsCount}");
         //}
 
-        ////TODO: Async
-        //[HttpPost]
-        //public async Task<IHttpActionResult> Index(ProjectionCreationModel model)
-        //{
-        //    //Catch errors for bad input data.
-        //    if (ModelState.IsValid)
-        //    {
-        //        NewSummary summary = await newProj.New(new Projection(model.MovieId, model.RoomId, model.StartDate));
-
-        //        if (summary.IsCreated)
-        //        {
-        //            return Ok("Projection has been created.");
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(summary.Message);
-        //        }
-        //    }
-
-        //    //Catch errors for bad input data.
-        //    return BadRequest("Wrong Input Data!");
-        //}
         private readonly INewProjection newProj;
         private readonly IAvailableSeatsProjection availableSeatsProj;
 
@@ -107,7 +81,7 @@ namespace CinemAPI.Controllers
 
             if (numberOfSeats.IsCreated)
             {
-                return Ok(numberOfSeats);
+                return Ok(StringConstants.AvailableSeats + numberOfSeats.Message);
             }
             else
             {
@@ -123,7 +97,7 @@ namespace CinemAPI.Controllers
             //Done: Add catch for adding past time.
             if (summary.IsCreated)
             {
-                return Ok();
+                return Ok(StringConstants.ProectionCreated);
             }
             else
             {

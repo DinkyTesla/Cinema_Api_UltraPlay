@@ -18,13 +18,13 @@ namespace CinemAPI.Data.Implementation
 
         public async Task<IMovie> GetById(int movieId)
         {
-            return await this.db.Movies.FirstOrDefaultAsync(x => x.Id == movieId);
+            return await this.db.Movies.FirstOrDefaultAsync(m => m.Id == movieId);
         }
 
         public async Task<IMovie> GetByNameAndDuration(string name, short duration)
         {
-            return await this.db.Movies.FirstOrDefaultAsync(x => x.Name == name &&
-                                                 x.DurationMinutes == duration);
+            return await this.db.Movies.FirstOrDefaultAsync(m => m.Name == name &&
+                                                 m.DurationMinutes == duration);
         }
 
         public async Task Insert(IMovieCreation movie)
@@ -38,7 +38,7 @@ namespace CinemAPI.Data.Implementation
         public async Task<string> GetMovieNameById(int id)
         {
             return await this.db.Movies
-                 .Where(x => x.Id == id)
+                 .Where(m => m.Id == id)
                  .Select(x => x.Name)
                  .FirstOrDefaultAsync();
         }

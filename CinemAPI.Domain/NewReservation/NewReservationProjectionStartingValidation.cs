@@ -24,7 +24,7 @@ namespace CinemAPI.Domain.NewReservation
         {
             DateTime projectionStartDate = await this.projRepo.GetProjectionStartDate(model.ProjectionId);
 
-            //TODO: Check minutes?
+            //DONE: Check minutes?
             if (DateTime.Now.AddMinutes(10) > projectionStartDate)
             {
                 return new NewReservationSummary(false, StringConstants.ProjectionIsStarting);

@@ -19,13 +19,13 @@ namespace CinemAPI.Data.Implementation
 
         public async Task<IRoom> GetByCinemaAndNumber(int cinemaId, int number)
         {
-            return await this.db.Rooms.FirstOrDefaultAsync(x => x.CinemaId == cinemaId &&
-                                                x.Number == number);
+            return await this.db.Rooms.FirstOrDefaultAsync(r => r.CinemaId == cinemaId &&
+                                                r.Number == number);
         }
 
         public async Task<IRoom> GetById(int id)
         {
-            return await this.db.Rooms.FirstOrDefaultAsync(x => x.Id == id);
+            return await this.db.Rooms.FirstOrDefaultAsync(r => r.Id == id);
         }
 
         public async Task Insert(IRoomCreation room)

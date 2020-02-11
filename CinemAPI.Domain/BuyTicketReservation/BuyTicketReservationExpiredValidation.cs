@@ -2,6 +2,7 @@
 using CinemAPI.Domain.Constants;
 using CinemAPI.Domain.Contracts.Models;
 using CinemAPI.Domain.Contracts.Models.ReservationModels;
+using CinemAPI.Domain.Contracts.Models.TicketModels;
 using CinemAPI.Models.Contracts.Reservation;
 using System;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace CinemAPI.Domain.BuyTicketReservation
             this.reservationRepository = reservationRepository;
         }
 
-        public async Task<NewSummary> Buy(int id)
+        public async Task<NewTicketSummary> Buy(int id)
         {
             IReservation reservation = await this.reservationRepository.GetById(id);
             DateTime projectionStartdate = await this.projRepo.GetProjectionStartDate(reservation.ProjectionId);
@@ -32,7 +33,7 @@ namespace CinemAPI.Domain.BuyTicketReservation
                 int count = await this.reservationRepository.RemoveAllReservations(reservation.ProjectionId);
                 await this.projRepo.IncreaseAvailableSeats(reservation.ProjectionId, count);
 
-                return new NewSummary(false, StringConstants.ReservationExpired);
+                return new NewTicketSummary(false, StringConstants.ReservationExpired);
             }
 
             return await buyTicket.Buy(id);
